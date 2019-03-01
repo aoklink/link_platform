@@ -1,0 +1,23 @@
+<configuration>
+
+    <appender name="REPORT_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>/root/logs/hey-web/report.log</file>
+        <encoder>
+            <pattern>%date %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="REPORT" level="info">
+        <appender-ref ref="REPORT_FILE" />
+    </logger>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>
