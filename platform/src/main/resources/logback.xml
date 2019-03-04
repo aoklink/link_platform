@@ -1,15 +1,11 @@
 <configuration>
 
-    <appender name="REPORT_FILE" class="ch.qos.logback.core.FileAppender">
-        <file>/root/logs/hey-web/report.log</file>
+    <appender name="File" class="ch.qos.logback.core.FileAppender">
+        <file>/root/logs/link_platform.log</file>
         <encoder>
-            <pattern>%date %msg%n</pattern>
+            <pattern>%d{HH:mm:ss.SSS} %msg%n</pattern>
         </encoder>
     </appender>
-
-    <logger name="REPORT" level="info">
-        <appender-ref ref="REPORT_FILE" />
-    </logger>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -19,5 +15,6 @@
 
     <root level="info">
         <appender-ref ref="STDOUT" />
+        <appender-ref ref="File" />
     </root>
 </configuration>

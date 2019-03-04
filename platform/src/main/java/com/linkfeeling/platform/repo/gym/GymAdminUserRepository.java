@@ -9,4 +9,8 @@ import java.util.Optional;
 public interface GymAdminUserRepository extends CrudRepository<GymAdminUser, Long> {
 
     Optional<GymAdminUser> findByGymIdAndName(Long gymId, String name);
+
+    void deleteByGymId(Long gymId);
+
+    List<GymAdminUser> getAllByGymId(Long gymId);
 }

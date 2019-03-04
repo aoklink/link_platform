@@ -1,6 +1,6 @@
 # Platform
 # 接口列表
-- "/api/user/add",
+- "/api/user/add", 
 - "/api/user/verify",
 - "/api/gym_admin_user/add",
 - "/api/gym_admin_user/verify",
@@ -19,3 +19,4 @@
 - "/api/gym_info/delete",
 - "/api/gym_info/list",
 - "/api/gym_info/get",
+- "/api/gym_common/delete", 执行针对健身房对应ID所有信息的删除
