@@ -1,0 +1,3 @@
+CREATE DATABASE `linkfeeling_platform` CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+CREATE USER `linkfeeling`@`%` IDENTIFIED WITH mysql_native_password BY 'linkfeeling';
+GRANT Alter, Alter Routine, Create, Create Routine, Create Temporary Tables, Create View, Delete, Drop, Event, Execute, Grant Option, Index, Insert, Lock Tables, References, Select, Show View, Trigger, Update ON `linkfeeling\_platform`.* TO `linkfeeling`@`%`;

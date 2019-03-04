@@ -1,7 +1,11 @@
 package com.linkfeeling.platform.repo;
 
-import com.linkfeeling.platform.bean.SystemUser;
+import com.linkfeeling.platform.bean.jpa.SystemUser;
 import org.springframework.data.repository.CrudRepository;
 
-public interface SystemUserRepository extends CrudRepository<SystemUser, String> {
+import java.util.Optional;
+
+public interface SystemUserRepository extends CrudRepository<SystemUser, Long> {
+
+    Optional<SystemUser> findByName(String name);
 }
