@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.provisioning.UserDetailsManager;
+import org.springframework.util.DigestUtils;
 
 import java.util.Collections;
 import java.util.Optional;
@@ -50,13 +51,13 @@ public class AllUserManager implements UserDetailsManager {
             Object object = objectOptional.get();
             if(object instanceof SystemUser){
                 SystemUser user = (SystemUser) object;
-                return new User(user.getName(),user.getPassword(), Collections.singleton(new SimpleGrantedAuthority(IUserRole.SYSTEM)));
+                return new User(user.getName(), DigestUtils.md5DigestAsHex(user.getPassword().getBytes()), Collections.singleton(new SimpleGrantedAuthority(IUserRole.SYSTEM)));
             }else if (object instanceof GymAdminUser){
                 GymAdminUser user = (GymAdminUser) object;
-                return new User(user.getName(),user.getPassword(), Collections.singleton(new SimpleGrantedAuthority(IUserRole.GYM_ADMIN)));
+                return new User(user.getName(),DigestUtils.md5DigestAsHex(user.getPassword().getBytes()), Collections.singleton(new SimpleGrantedAuthority(IUserRole.GYM_ADMIN)));
             }else if(object instanceof GymGroupUser){
                 GymGroupUser user = (GymGroupUser) object;
-                return new User(user.getName(),user.getPassword(), Collections.singleton(new SimpleGrantedAuthority(IUserRole.GYM_GROUP)));
+                return new User(user.getName(),DigestUtils.md5DigestAsHex(user.getPassword().getBytes()), Collections.singleton(new SimpleGrantedAuthority(IUserRole.GYM_GROUP)));
             }else {
                 throw new UsernameNotFoundException(username);
             }
