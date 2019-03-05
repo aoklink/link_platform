@@ -1,5 +1,9 @@
 package com.linkfeeling.platform.bean.interactive.response;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class SystemUser {
     private Long id;
     private String name;

@@ -1,8 +1,12 @@
 package com.linkfeeling.platform.bean.jpa.gym;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
 import javax.persistence.*;
 
 @Entity
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class GymClass {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,23 +16,26 @@ public class GymClass {
     @Lob
     private String content;
     private Long gymId;
+    private Integer state;
 
     public GymClass() {
     }
 
-    public GymClass(String title, String priceInfo, String content, Long gymId) {
+    public GymClass(String title, String priceInfo, String content, Long gymId,Integer state) {
         this.title = title;
         this.priceInfo = priceInfo;
         this.content = content;
         this.gymId = gymId;
+        this.state = state;
     }
 
-    public GymClass(Long id, String title, String priceInfo, String content, Long gymId) {
+    public GymClass(Long id, String title, String priceInfo, String content, Long gymId,Integer state) {
         this.id = id;
         this.title = title;
         this.priceInfo = priceInfo;
         this.content = content;
         this.gymId = gymId;
+        this.state = state;
     }
 
     public Long getId() {
@@ -64,5 +71,13 @@ public class GymClass {
 
     public void setGymId(Long gymId) {
         this.gymId = gymId;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 }

@@ -10,7 +10,9 @@ public interface GymAdminUserRepository extends CrudRepository<GymAdminUser, Lon
 
     Optional<GymAdminUser> findByGymIdAndName(Long gymId, String name);
 
+    Optional<GymAdminUser> findByName(String name);
+
     void deleteByGymId(Long gymId);
 
-    List<GymAdminUser> getAllByGymId(Long gymId);
+    Optional<GymAdminUser> findByGymId(Long gymId);
 }

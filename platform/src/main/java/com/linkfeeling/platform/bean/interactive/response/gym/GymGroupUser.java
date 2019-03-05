@@ -4,49 +4,32 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class GymAdminUser {
+public class GymGroupUser {
     private Long id;
-
     private String name;
     private String phone;
-    private Long gymId;
+    private String gymIdArray;
 
-    public GymAdminUser(Long id, String name, String phone, Long gymId) {
+    public GymGroupUser(Long id, String name, String phone, String gymIdArray) {
         this.id = id;
         this.name = name;
         this.phone = phone;
-        this.gymId = gymId;
+        this.gymIdArray = gymIdArray;
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public Long getGymId() {
-        return gymId;
-    }
-
-    public void setGymId(Long gymId) {
-        this.gymId = gymId;
+    public String getGymIdArray() {
+        return gymIdArray;
     }
 }

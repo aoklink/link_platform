@@ -1,15 +1,18 @@
 package com.linkfeeling.platform.bean.jpa.gym;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
+import javax.persistence.*;
 
 @Entity
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class GymInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private Long memberCount;
 
     private String name;
 
@@ -22,12 +25,14 @@ public class GymInfo {
     private String phone;
 
     private String logoUrl;
-
+    @Lob
     private String displayImgUrls;
 
     private String miniProgramCodeUrl;
 
-    public GymInfo(String name, String city, String address, String label, String phone, String logoUrl, String displayImgUrls, String miniProgramCodeUrl) {
+    public GymInfo(Long id, Long memberCount, String name, String city, String address, String label, String phone, String logoUrl, String displayImgUrls, String miniProgramCodeUrl) {
+        this.id = id;
+        this.memberCount = memberCount;
         this.name = name;
         this.city = city;
         this.address = address;
@@ -38,8 +43,8 @@ public class GymInfo {
         this.miniProgramCodeUrl = miniProgramCodeUrl;
     }
 
-    public GymInfo(Long id,String name, String city, String address, String label, String phone, String logoUrl, String displayImgUrls, String miniProgramCodeUrl) {
-        this.id = id;
+    public GymInfo(Long memberCount, String name, String city, String address, String label, String phone, String logoUrl, String displayImgUrls, String miniProgramCodeUrl) {
+        this.memberCount = memberCount;
         this.name = name;
         this.city = city;
         this.address = address;
@@ -51,6 +56,15 @@ public class GymInfo {
     }
 
     public GymInfo() {
+
+    }
+
+    public Long getMemberCount() {
+        return memberCount;
+    }
+
+    public void setMemberCount(Long memberCount) {
+        this.memberCount = memberCount;
     }
 
     public Long getId() {

@@ -23,6 +23,28 @@ public enum ResponseDesc {
             return "not exist";
         }
     },
+    ALREADY_EXIST {
+        @Override
+        public int getCode() {
+            return 414;
+        }
+
+        @Override
+        public String getMessage() {
+            return "already exist";
+        }
+    },
+    INVALID_REQUEST {
+        @Override
+        public int getCode() {
+            return 424;
+        }
+
+        @Override
+        public String getMessage() {
+            return "invalid request";
+        }
+    },
     PASSWORD_ERROR{
         @Override
         public int getCode() {

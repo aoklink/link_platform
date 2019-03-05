@@ -8,5 +8,5 @@ import java.util.List;
 public interface GymCoachRepository extends CrudRepository<GymCoach,Long>{
     void deleteByGymId(Long gymId);
 
-    List<GymCoach> getAllByGymId(Long gymId);
+    List<GymCoach> findAllByGymId(Long gymId);
 }

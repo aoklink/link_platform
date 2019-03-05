@@ -14,7 +14,7 @@ public class ResponseUtil {
 
     @SuppressWarnings("unchecked")
     public static Response newResponseWithDesc(ResponseDesc responseDesc) {
-        return new Response(responseDesc.getCode(),ResponseDesc.OK.getMessage(),"");
+        return new Response(responseDesc.getCode(),responseDesc.getMessage(),"");
     }
 
     @SuppressWarnings("unchecked")

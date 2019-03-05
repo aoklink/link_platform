@@ -8,8 +8,7 @@ import com.linkfeeling.platform.interactive.response.ResponseDesc;
 import com.linkfeeling.platform.interactive.util.InteractiveBeanUtil;
 import com.linkfeeling.platform.interactive.util.ResponseUtil;
 import com.linkfeeling.platform.repo.AllUserRepository;
-import com.linkfeeling.platform.repo.SystemUserRepository;
-import com.linkfeeling.platform.repo.gym.GymAdminUserRepository;
+import com.linkfeeling.platform.repo.gym.GymGroupUserRepository;
 import com.linkfeeling.platform.util.BeanWriteUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,23 +19,24 @@ import java.util.Optional;
 import static org.springframework.util.DigestUtils.md5DigestAsHex;
 
 @RestController
-@RequestMapping("/api/gym_admin_user")
-public class GymAdminUserController {
+@RequestMapping("/api/gym_group_user")
+public class GymGroupUserController {
     @Autowired
-    private GymAdminUserRepository gymAdminUserRepository;
+    private GymGroupUserRepository gymGroupUserRepository;
 
     @Autowired
     private AllUserRepository allUserRepository;
+
     @RequestMapping(ActionContract.OPERATE.ADD)
-    public Response addUser(String name, String phone, String password, Long gymId){
+    public Response addUser(String name, String phone, String password, String gymIdArray){
         if(allUserRepository.findByName(name).isPresent()){
             return ResponseUtil.newResponseWithDesc(ResponseDesc.ALREADY_EXIST,"username already exist.[name=]"+name);
         }
 
         try {
-            GymAdminUser gymAdminUser = new GymAdminUser(name,phone,md5DigestAsHex(password.getBytes()),gymId);
-            GymAdminUser gymAdminUserResult = gymAdminUserRepository.save(gymAdminUser);
-            return ResponseUtil.newSuccess(InteractiveBeanUtil.from(gymAdminUserResult));
+            GymGroupUser gymGroupUser = new GymGroupUser(name,phone,md5DigestAsHex(password.getBytes()),gymIdArray);
+            GymGroupUser gymGroupUserResult = gymGroupUserRepository.save(gymGroupUser);
+            return ResponseUtil.newSuccess(InteractiveBeanUtil.from(gymGroupUserResult));
         }catch (Exception e){
             e.printStackTrace();
             return ResponseUtil.newException(e);
@@ -44,12 +44,12 @@ public class GymAdminUserController {
     }
 
     @RequestMapping(ActionContract.OPERATE.UPDATE)
-    public Response updateUser(Long id, String name, String phone, String password, Long gymId){
+    public Response updateUser(Long id, String name, String phone, String password, String gymIdArray){
         try {
-            GymAdminUser gymAdminUser = new GymAdminUser(id,name,phone,password==null?null:md5DigestAsHex(password.getBytes()),gymId);
-            gymAdminUser = BeanWriteUtil.write(GymAdminUser.class,gymAdminUserRepository.findById(id).get(),gymAdminUser);
-            GymAdminUser gymAdminUserResult = gymAdminUserRepository.save(gymAdminUser);
-            return ResponseUtil.newSuccess(InteractiveBeanUtil.from(gymAdminUserResult));
+            GymGroupUser gymGroupUser = new GymGroupUser(id,name,phone,password==null?null:md5DigestAsHex(password.getBytes()),gymIdArray);
+            gymGroupUser = BeanWriteUtil.write(GymGroupUser.class,gymGroupUserRepository.findById(id).get(),gymGroupUser);
+            GymGroupUser gymGroupUserResult = gymGroupUserRepository.save(gymGroupUser);
+            return ResponseUtil.newSuccess(InteractiveBeanUtil.from(gymGroupUserResult));
         }catch (Exception e){
             e.printStackTrace();
             return ResponseUtil.newException(e);
@@ -57,9 +57,9 @@ public class GymAdminUserController {
     }
 
     @RequestMapping(ActionContract.OPERATE.VERIFY)
-    public Response verifyUser(Long gymId,String name, String password){
+    public Response verifyUser(String name, String password){
         try {
-            Optional<GymAdminUser> gymAdminUser = gymAdminUserRepository.findByGymIdAndName(gymId,name);
+            Optional<GymGroupUser> gymAdminUser = gymGroupUserRepository.findByName(name);
             if(gymAdminUser.isPresent()){
                 if(gymAdminUser.get().getPassword().equals(password)){
                     return ResponseUtil.newSuccess(InteractiveBeanUtil.from(gymAdminUser.get()));

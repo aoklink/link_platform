@@ -10,7 +10,7 @@ import javax.persistence.Id;
 
 @Entity
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class GymAdminUser {
+public class GymGroupUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,24 +18,24 @@ public class GymAdminUser {
     private String name;
     private String phone;
     private String password;
-    private Long gymId;
+    private String gymIdArray;
 
-    public GymAdminUser() {
+    public GymGroupUser() {
     }
 
-    public GymAdminUser(String name, String phone, String password, Long gymId) {
-        this.name = name;
-        this.phone = phone;
-        this.password = password;
-        this.gymId = gymId;
-    }
-
-    public GymAdminUser(Long id, String name, String phone, String password, Long gymId) {
+    public GymGroupUser(Long id, String name, String phone, String password, String gymIdArray) {
         this.id = id;
         this.name = name;
         this.phone = phone;
         this.password = password;
-        this.gymId = gymId;
+        this.gymIdArray = gymIdArray;
+    }
+
+    public GymGroupUser(String name, String phone, String password, String gymIdArray) {
+        this.name = name;
+        this.phone = phone;
+        this.password = password;
+        this.gymIdArray = gymIdArray;
     }
 
     public Long getId() {
@@ -46,31 +46,15 @@ public class GymAdminUser {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getPhone() {
         return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Long getGymId() {
-        return gymId;
-    }
-
-    public void setGymId(Long gymId) {
-        this.gymId = gymId;
+    public String getGymIdArray() {
+        return gymIdArray;
     }
 }

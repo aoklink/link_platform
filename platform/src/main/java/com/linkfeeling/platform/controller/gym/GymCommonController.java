@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -55,15 +56,13 @@ public class GymCommonController {
         try {
             Optional<GymInfo> gymInfo = gymInfoRepository.findById(id);
             if(gymInfo.isPresent()){
-                List<GymClass> gymClassList =  gymClassRepository.getAllByGymId(id);
-                List<GymAdminUser> gymAdminUserList =  gymAdminUserRepository.getAllByGymId(id);
-                List<GymCoach> gymCoachList =  gymCoachRepository.getAllByGymId(id);
+                List<GymClass> gymClassList =  gymClassRepository.findAllByGymId(id);
+                Optional<GymAdminUser> gymAdminUser =  gymAdminUserRepository.findByGymId(id);
+                List<GymCoach> gymCoachList =  gymCoachRepository.findAllByGymId(id);
 
 
                 GymCommonInfo gymCommonInfo = new GymCommonInfo(gymInfo.get(),
-                        gymAdminUserList.stream()
-                                .map(gymAdminUser -> InteractiveBeanUtil.from(gymAdminUser))
-                                .collect(Collectors.toList()),
+                        InteractiveBeanUtil.from(gymAdminUser.get()),
                         gymClassList.stream()
                                 .map(gymClass -> InteractiveBeanUtil.from(gymClass))
                                 .collect(Collectors.toList()),
@@ -78,4 +77,17 @@ public class GymCommonController {
             return ResponseUtil.newException(e);
         }
     }
+
+    @RequestMapping(ActionContract.OPERATE.GET_ME)
+    public Response getGymInfo(HttpServletRequest servletRequest){
+        String userName = servletRequest.getUserPrincipal().getName();
+        Optional<GymAdminUser> adminUser = gymAdminUserRepository.findByName(userName);
+        if(adminUser.isPresent()){
+           return get(adminUser.get().getGymId());
+        }else{
+            return ResponseUtil.newResponseWithDesc(ResponseDesc.NOT_EXIST);
+        }
+    }
+
+
 }
