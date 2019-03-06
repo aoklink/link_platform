@@ -35,6 +35,11 @@ public class GymCoachController {
         }
     }
 
+    @RequestMapping(ActionContract.OPERATE.ADD_ME)
+    public Response addMe(HttpServletRequest request,String name, String label){
+        return GymControllerUtil.onMeRequest(request,gymAdminUserRepository,gymId -> add(name,label,gymId));
+    }
+
     @RequestMapping(ActionContract.OPERATE.DELETE)
     public Response delete(Long id){
         try {
@@ -44,6 +49,17 @@ public class GymCoachController {
             e.printStackTrace();
             return ResponseUtil.newException(e);
         }
+    }
+
+    @RequestMapping(ActionContract.OPERATE.DELETE_ME)
+    public Response deleteMe(HttpServletRequest request,Long id){
+        return GymControllerUtil.onMeRequest(request,gymAdminUserRepository,gymId ->
+                gymCoachRepository.findByGymIdAndId(gymId,id).isPresent()?
+                        delete(id):
+                        GymControllerUtil.notExistResponse("coach",gymId,id)
+        );
+
+
     }
 
     @RequestMapping(ActionContract.OPERATE.UPDATE)
@@ -58,6 +74,15 @@ public class GymCoachController {
         }
     }
 
+    @RequestMapping(ActionContract.OPERATE.UPDATE_ME)
+    public Response updateMe(HttpServletRequest request,Long id,String name, String label){
+        return GymControllerUtil.onMeRequest(request,gymAdminUserRepository,gymId ->
+                gymCoachRepository.findByGymIdAndId(gymId,id).isPresent()?
+                        update(id,name,label,gymId):
+                        GymControllerUtil.notExistResponse("coach",gymId,id));
+
+    }
+
     @RequestMapping(ActionContract.OPERATE.GET)
     public Response get(Long id){
         Optional<GymCoach> gymCoach = gymCoachRepository.findById(id);
@@ -66,6 +91,16 @@ public class GymCoachController {
         }else{
             return ResponseUtil.newResponseWithDesc(ResponseDesc.NOT_EXIST);
         }
+    }
+
+    @RequestMapping(ActionContract.OPERATE.GET_ME)
+    public Response getMe(HttpServletRequest request,Long id){
+        return GymControllerUtil.onMeRequest(request,gymAdminUserRepository,
+                gymId ->
+                        gymCoachRepository.findByGymIdAndId(gymId,id).isPresent()?
+                                get(id):
+                                GymControllerUtil.notExistResponse("coach",gymId,id)
+        );
     }
 
     @RequestMapping(ActionContract.OPERATE.LIST_ALL)

@@ -18,12 +18,15 @@ public class GymInfoSimple {
 
     private String city;
 
+    private Long memberCount;
+
     private GymAdminUser gymAdminUser;
 
     public GymInfoSimple(GymInfo gymInfo,GymAdminUser gymAdminUser) {
         this.id = gymInfo.getId();
         this.name = gymInfo.getName();
         this.city = gymInfo.getCity();
+        this.memberCount = gymInfo.getMemberCount();
         this.gymAdminUser = gymAdminUser;
     }
 
@@ -41,5 +44,9 @@ public class GymInfoSimple {
 
     public GymAdminUser getGymAdminUser() {
         return gymAdminUser;
+    }
+
+    public Long getMemberCount() {
+        return memberCount;
     }
 }

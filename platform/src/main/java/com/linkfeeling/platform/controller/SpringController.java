@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/spring")
@@ -25,11 +26,11 @@ public class SpringController {
         AbstractHandlerMethodMapping<RequestMappingInfo> objHandlerMethodMapping =
                 (AbstractHandlerMethodMapping<RequestMappingInfo>)
                         applicationContext.getBean("requestMappingHandlerMapping");
-        List<String> urlPatterns = new ArrayList<>();
-        Set<RequestMappingInfo> mappingInfoSet = objHandlerMethodMapping.getHandlerMethods().keySet();
-        mappingInfoSet.stream()
+        List<String> urlPatterns =  objHandlerMethodMapping.getHandlerMethods().keySet().stream()
                 .map(requestMappingInfo -> requestMappingInfo.getPatternsCondition().getPatterns())
-                .forEach(item->urlPatterns.addAll(item));
+                .flatMap(set->set.stream())
+                .sorted()
+                .collect(Collectors.toList());
         return ResponseUtil.newSuccess(urlPatterns);
     }
 }

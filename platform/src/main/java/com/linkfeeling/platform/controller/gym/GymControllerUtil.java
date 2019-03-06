@@ -40,6 +40,10 @@ public class GymControllerUtil {
         }
     }
 
+    public static Response notExistResponse(String what,Long gymId,Long itId){
+        return ResponseUtil.newResponseWithDesc(ResponseDesc.NOT_EXIST,what+ " not exist. [gymId:"+gymId+",id="+itId+"]");
+    }
+
     private static List<Long> parseGymIdList(String gymIdListString){
         try {
             JSONParser jsonParser = new JSONParser(gymIdListString);

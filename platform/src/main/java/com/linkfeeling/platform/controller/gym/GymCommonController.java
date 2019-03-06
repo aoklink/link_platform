@@ -80,13 +80,7 @@ public class GymCommonController {
 
     @RequestMapping(ActionContract.OPERATE.GET_ME)
     public Response getGymInfo(HttpServletRequest servletRequest){
-        String userName = servletRequest.getUserPrincipal().getName();
-        Optional<GymAdminUser> adminUser = gymAdminUserRepository.findByName(userName);
-        if(adminUser.isPresent()){
-           return get(adminUser.get().getGymId());
-        }else{
-            return ResponseUtil.newResponseWithDesc(ResponseDesc.NOT_EXIST);
-        }
+        return GymControllerUtil.onMeRequest(servletRequest,gymAdminUserRepository,gymId -> get(gymId));
     }
 
 

@@ -7,6 +7,9 @@
 ## platform
 platform目录是项目的数据库交互模块代码，使用SpringBoot,JDBC,JPA实现，数据库使用的是MYSQL，版本是8+
 
+### 接口列表及介绍
+[查看链接](platform/README.md)
+
 ## third_component
 third_component目录是第三方组件说明
 ### mysql

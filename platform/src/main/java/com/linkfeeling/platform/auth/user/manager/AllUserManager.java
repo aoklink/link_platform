@@ -6,6 +6,7 @@ import com.linkfeeling.platform.bean.jpa.gym.GymGroupUser;
 import com.linkfeeling.platform.interactive.util.InteractiveBeanUtil;
 import com.linkfeeling.platform.repo.AllUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +20,8 @@ import java.util.Optional;
 public class AllUserManager implements UserDetailsManager {
     @Autowired
     private AllUserRepository allUserRepository;
+    @Value("${app.auth.strict}")
+    private boolean authStrict;
     @Override
     public void createUser(UserDetails user) {
 
@@ -51,18 +54,26 @@ public class AllUserManager implements UserDetailsManager {
             Object object = objectOptional.get();
             if(object instanceof SystemUser){
                 SystemUser user = (SystemUser) object;
-                return new User(user.getName(), DigestUtils.md5DigestAsHex(user.getPassword().getBytes()), Collections.singleton(new SimpleGrantedAuthority(IUserRole.SYSTEM)));
+                return new User(user.getName(), genPassword(user.getPassword()), Collections.singleton(new SimpleGrantedAuthority(IUserAuthority.SYSTEM)));
             }else if (object instanceof GymAdminUser){
                 GymAdminUser user = (GymAdminUser) object;
-                return new User(user.getName(),DigestUtils.md5DigestAsHex(user.getPassword().getBytes()), Collections.singleton(new SimpleGrantedAuthority(IUserRole.GYM_ADMIN)));
+                return new User(user.getName(),genPassword(user.getPassword()), Collections.singleton(new SimpleGrantedAuthority(IUserAuthority.GYM_ADMIN)));
             }else if(object instanceof GymGroupUser){
                 GymGroupUser user = (GymGroupUser) object;
-                return new User(user.getName(),DigestUtils.md5DigestAsHex(user.getPassword().getBytes()), Collections.singleton(new SimpleGrantedAuthority(IUserRole.GYM_GROUP)));
+                return new User(user.getName(),genPassword(user.getPassword()), Collections.singleton(new SimpleGrantedAuthority(IUserAuthority.GYM_GROUP)));
             }else {
                 throw new UsernameNotFoundException(username);
             }
         }else{
             throw new UsernameNotFoundException(username);
+        }
+    }
+
+    private String genPassword(String raw){
+        if(authStrict){
+            return DigestUtils.md5DigestAsHex(raw.getBytes());
+        }else{
+            return raw;
         }
     }
 

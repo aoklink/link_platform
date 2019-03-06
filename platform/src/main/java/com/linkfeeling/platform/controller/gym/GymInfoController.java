@@ -58,6 +58,16 @@ public class GymInfoController {
             return ResponseUtil.newException(e);
         }
     }
+
+    @RequestMapping(ActionContract.OPERATE.UPDATE_ME)
+    public Response updateMeInfo(HttpServletRequest servletRequest,Long memberCount,String name, String city, String address, String label,
+                               String phone, String logoUrl, String displayImgUrls, String miniProgramCodeUrl){
+        return GymControllerUtil.onMeRequest(servletRequest,gymAdminUserRepository,gymId ->
+                gymInfoRepository.findById(gymId).isPresent()?updateInfo(gymId,memberCount,name,city,address,label,phone,logoUrl,displayImgUrls,miniProgramCodeUrl)
+                :ResponseUtil.newResponseWithDesc(ResponseDesc.NOT_EXIST,"gym not exist. [id="+gymId+"]")
+                );
+    }
+
     @RequestMapping(ActionContract.OPERATE.GET)
     public Response getGymInfo(Long id){
         Optional<GymInfo> gymInfo = gymInfoRepository.findById(id);
