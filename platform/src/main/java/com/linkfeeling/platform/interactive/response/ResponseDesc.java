@@ -12,6 +12,29 @@ public enum ResponseDesc {
             return "OK";
         }
     },
+    UNAUTHORIZED{
+        @Override
+        public int getCode() {
+            return 401;
+        }
+
+        @Override
+        public String getMessage() {
+            return "unauthorized";
+        }
+    },
+    ACCESS_DENIED {
+        @Override
+        public int getCode() {
+            return 403;
+        }
+
+        @Override
+        public String getMessage() {
+            return "access denied";
+        }
+    },
+
     NOT_EXIST {
         @Override
         public int getCode() {

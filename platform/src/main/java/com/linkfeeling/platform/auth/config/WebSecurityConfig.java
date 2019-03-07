@@ -1,11 +1,12 @@
 package com.linkfeeling.platform.auth.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.linkfeeling.platform.auth.handler.OnAccessDeniedHandler;
+import com.linkfeeling.platform.auth.handler.OnAuthFailHandler;
+import com.linkfeeling.platform.auth.handler.OnAuthSuccessHandler;
+import com.linkfeeling.platform.auth.handler.OnNoLoginHandler;
 import com.linkfeeling.platform.auth.user.manager.AllUserManager;
 import com.linkfeeling.platform.auth.user.manager.IUserAuthority;
-import com.linkfeeling.platform.bean.interactive.response.AuthoritiesUser;
-import com.linkfeeling.platform.interactive.response.ResponseDesc;
-import com.linkfeeling.platform.interactive.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,9 +14,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.util.DigestUtils;
-
-import java.util.stream.Collectors;
 
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -35,19 +35,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable()
                 .formLogin()
-                .failureHandler((request, response, exception) -> {
-                    response.setContentType("application/json;charset=UTF-8");
-                    response.getWriter().write(objectMapper.writeValueAsString(ResponseUtil.newResponseWithDesc(ResponseDesc.PASSWORD_ERROR,exception.getMessage())));
-                })
-                .successHandler((request, response, authentication) -> {
-                    response.setContentType("application/json;charset=UTF-8");
-                    AuthoritiesUser authoritiesUser =
-                            new AuthoritiesUser(userManager.getUserToResponse(authentication.getName()),
-                            authentication.getAuthorities().stream()
-                                    .map(authenticationItem->authenticationItem.getAuthority())
-                                    .collect(Collectors.toList()));
-                    response.getWriter().write(objectMapper.writeValueAsString(ResponseUtil.newSuccess(authoritiesUser)));
-                });
+                .failureHandler(onAuthFailHandler())
+                .successHandler(onAuthSuccessHandler());
+        http.exceptionHandling().accessDeniedHandler(accessDeniedHandler())
+                .authenticationEntryPoint(noLoginHandler());
     }
 
 
@@ -71,5 +62,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AllUserManager allUserManager(){
         return new AllUserManager();
+    }
+
+    public AccessDeniedHandler accessDeniedHandler(){
+        return new OnAccessDeniedHandler(objectMapper);
+    }
+
+    public OnNoLoginHandler noLoginHandler(){
+        return new OnNoLoginHandler(objectMapper);
+    }
+
+    public OnAuthFailHandler onAuthFailHandler(){
+        return new OnAuthFailHandler(objectMapper);
+    }
+
+    public OnAuthSuccessHandler onAuthSuccessHandler(){
+        return new OnAuthSuccessHandler(objectMapper,userManager);
     }
 }
