@@ -42,6 +42,51 @@
 +----+--------+---------------------------+--------+
 ```
 
+# 接口响应
+除登录接口外，返回的结果一般为对应的实体JSON对象或对象JSON列表对象
+
+```
+样例（体验课列表）
+{
+    "code": 200,
+    "message": "OK",
+    "data": [
+        {
+            "id": 2,
+            "title": "第一堂体验课",
+            "price_info": "{\"test\":1000}",
+            "content": "<div>第一节</div>",
+            "gym_id": 1,
+            "state": 0
+        },
+        {
+            "id": 3,
+            "title": "第二堂",
+            "price_info": "{\"test\":300}",
+            "content": "<div>Hello</div>",
+            "gym_id": 1,
+            "state": 0
+        }
+    ]
+}
+
+登录成功返回样例
+{
+    "code": 200,
+    "message": "OK",
+    "data": {
+        "user": {
+            "id": 1,
+            "name": "hello",
+            "phone": "123456789",
+            "gym_id": 1
+        },
+        "authorities": [
+            "ROLE_GYM_ADMIN"
+        ]
+    }
+}
+```
 # 接口列表(具体参数值参考字段举例)
 > 一期开发系统用户后台系统，只需要关注不是me和group结尾的接口  
 
