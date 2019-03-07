@@ -34,7 +34,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/api/**").hasAuthority(IUserAuthority.SYSTEM)
                 .and()
                 .csrf().disable()
-                .formLogin()
+                .formLogin().loginPage("/api/login")
+                .usernameParameter("name")
+                .passwordParameter("password")
                 .failureHandler(onAuthFailHandler())
                 .successHandler(onAuthSuccessHandler());
         http.exceptionHandling().accessDeniedHandler(accessDeniedHandler())

@@ -46,7 +46,7 @@
 > 一期开发系统用户后台系统，只需要关注不是me和group结尾的接口  
 
 > 二期开发健身房管理员,只关注me结尾的接口
-- "[/login]:[String name, String password]", 需要对用户的密码进行32位小写的md5加密
+- "[/api/login]:[String name, String password]", 通过表单登录，需要对用户的密码进行32位小写的md5加密
 - "[/api/user/add]:[String name, String password]",
 - "[/api/user/verify]:[String name, String password]",
 - "[/api/gym_admin_user/add]:[String name, String phone, String password, Long gym_id]",
