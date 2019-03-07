@@ -26,8 +26,8 @@ public class GymClassController {
     private GymAdminUserRepository gymAdminUserRepository;
 
     @RequestMapping(ActionContract.OPERATE.ADD)
-    public Response add(String title, String priceInfo, String content, Long gymId){
-        GymClass gymClass = new GymClass(title,priceInfo,content,gymId,0);
+    public Response add(String title, String price_info, String content, Long gym_id){
+        GymClass gymClass = new GymClass(title,price_info,content,gym_id,0);
         try {
             return ResponseUtil.newSuccess(InteractiveBeanUtil.from(gymClassRepository.save(gymClass)));
         }catch (Exception e){
@@ -37,8 +37,8 @@ public class GymClassController {
     }
 
     @RequestMapping(ActionContract.OPERATE.ADD_ME)
-    public Response addMe(HttpServletRequest request,String title, String priceInfo, String content){
-        return GymControllerUtil.onMeRequest(request,gymAdminUserRepository,gymId -> add(title,priceInfo,content,gymId));
+    public Response addMe(HttpServletRequest request,String title, String price_info, String content){
+        return GymControllerUtil.onMeRequest(request,gymAdminUserRepository,gymId -> add(title,price_info,content,gymId));
     }
 
     @RequestMapping(ActionContract.OPERATE.DELETE)
@@ -64,8 +64,8 @@ public class GymClassController {
     }
 
     @RequestMapping(ActionContract.OPERATE.UPDATE)
-    public Response update(Long id,String title, String priceInfo, String content, Long gymId,Integer state){
-        GymClass gymClass = new GymClass(id,title,priceInfo,content,gymId,state);
+    public Response update(Long id,String title, String price_info, String content, Long gym_id,Integer state){
+        GymClass gymClass = new GymClass(id,title,price_info,content,gym_id,state);
         try {
             gymClass = BeanWriteUtil.write(GymClass.class,gymClassRepository.findById(id).get(),gymClass);
             return ResponseUtil.newSuccess(gymClassRepository.save(gymClass));
@@ -76,10 +76,10 @@ public class GymClassController {
     }
 
     @RequestMapping(ActionContract.OPERATE.UPDATE_ME)
-    public Response updateMe(HttpServletRequest request,Long id,String title, String priceInfo, String content,Integer state){
+    public Response updateMe(HttpServletRequest request,Long id,String title, String price_info, String content,Integer state){
         return GymControllerUtil.onMeRequest(request,gymAdminUserRepository,gymId ->
                 gymClassRepository.findByGymIdAndId(gymId,id).isPresent()?
-                        update(id,title,priceInfo,content,gymId,state):
+                        update(id,title,price_info,content,gymId,state):
                         GymControllerUtil.notExistResponse("class",gymId,id));
 
     }
@@ -116,8 +116,8 @@ public class GymClassController {
     }
 
     @RequestMapping(ActionContract.OPERATE.LIST)
-    public Response list(Long gymId){
-        Iterable<GymClass> gymCoaches = gymClassRepository.findAllByGymId(gymId);
+    public Response list(Long gym_id){
+        Iterable<GymClass> gymCoaches = gymClassRepository.findAllByGymId(gym_id);
         return ResponseUtil.newSuccess(ArrayListUtil.of(gymCoaches));
     }
 }

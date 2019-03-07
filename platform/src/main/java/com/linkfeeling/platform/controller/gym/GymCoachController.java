@@ -25,8 +25,8 @@ public class GymCoachController {
     private GymAdminUserRepository gymAdminUserRepository;
 
     @RequestMapping(ActionContract.OPERATE.ADD)
-    public Response add(String name, String label, Long gymId){
-        GymCoach gymCoach = new GymCoach(name,label,gymId);
+    public Response add(String name, String label, Long gym_id){
+        GymCoach gymCoach = new GymCoach(name,label,gym_id);
         try {
             return ResponseUtil.newSuccess(gymCoachRepository.save(gymCoach));
         }catch (Exception e){
@@ -63,8 +63,8 @@ public class GymCoachController {
     }
 
     @RequestMapping(ActionContract.OPERATE.UPDATE)
-    public Response update(Long id,String name, String label, Long gymId){
-        GymCoach gymCoach = new GymCoach(id,name,label,gymId);
+    public Response update(Long id,String name, String label, Long gym_id){
+        GymCoach gymCoach = new GymCoach(id,name,label,gym_id);
         try {
             gymCoach = BeanWriteUtil.write(GymCoach.class,gymCoachRepository.findById(id).get(),gymCoach);
             return ResponseUtil.newSuccess(gymCoachRepository.save(gymCoach));
@@ -115,8 +115,8 @@ public class GymCoachController {
     }
 
     @RequestMapping(ActionContract.OPERATE.LIST)
-    public Response list(Long gymId){
-        Iterable<GymCoach> gymCoaches = gymCoachRepository.findAllByGymId(gymId);
+    public Response list(Long gym_id){
+        Iterable<GymCoach> gymCoaches = gymCoachRepository.findAllByGymId(gym_id);
         return ResponseUtil.newSuccess(ArrayListUtil.of(gymCoaches));
     }
 }

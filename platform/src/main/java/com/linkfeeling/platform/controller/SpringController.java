@@ -1,8 +1,9 @@
 package com.linkfeeling.platform.controller;
 
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.linkfeeling.platform.interactive.response.Response;
 import com.linkfeeling.platform.interactive.util.ResponseUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.DefaultParameterNameDiscoverer;
@@ -19,6 +20,9 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/spring")
 public class SpringController {
+
+    private static final Logger logger = LoggerFactory.getLogger(SpringController.class);
+
     @Autowired
     private ApplicationContext applicationContext;
 
@@ -42,8 +46,13 @@ public class SpringController {
 
     private static String getParameterName(MethodParameter methodParameter){
         methodParameter.initParameterNameDiscovery(new DefaultParameterNameDiscoverer());
-        PropertyNamingStrategy.SnakeCaseStrategy snakeCaseStrategy = new PropertyNamingStrategy.SnakeCaseStrategy();
-        return snakeCaseStrategy.translate(methodParameter.getParameterName());
+        String name =  methodParameter.getParameterName();
+        if(name.chars().anyMatch(item->item>='A'&& item<='Z')){
+            if(methodParameter.getDeclaringClass() != HttpServletRequest.class){
+                logger.error(methodParameter.getDeclaringClass().getName()+"#"+methodParameter.getMethod().getName()+"@"+name +" [not_snack]");
+            }
+        }
+        return name;
     }
 
     private static List<String> getParameterDescList(MethodParameter[] methodParameters){

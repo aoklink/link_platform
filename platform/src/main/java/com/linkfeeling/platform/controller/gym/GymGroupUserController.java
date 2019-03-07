@@ -28,13 +28,13 @@ public class GymGroupUserController {
     private AllUserRepository allUserRepository;
 
     @RequestMapping(ActionContract.OPERATE.ADD)
-    public Response addUser(String name, String phone, String password, String gymIdArray){
+    public Response addUser(String name, String phone, String password, String gym_id_array){
         if(allUserRepository.findByName(name).isPresent()){
             return ResponseUtil.newResponseWithDesc(ResponseDesc.ALREADY_EXIST,"username already exist.[name=]"+name);
         }
 
         try {
-            GymGroupUser gymGroupUser = new GymGroupUser(name,phone,md5DigestAsHex(password.getBytes()),gymIdArray);
+            GymGroupUser gymGroupUser = new GymGroupUser(name,phone,md5DigestAsHex(password.getBytes()),gym_id_array);
             GymGroupUser gymGroupUserResult = gymGroupUserRepository.save(gymGroupUser);
             return ResponseUtil.newSuccess(InteractiveBeanUtil.from(gymGroupUserResult));
         }catch (Exception e){
@@ -44,9 +44,9 @@ public class GymGroupUserController {
     }
 
     @RequestMapping(ActionContract.OPERATE.UPDATE)
-    public Response updateUser(Long id, String name, String phone, String password, String gymIdArray){
+    public Response updateUser(Long id, String name, String phone, String password, String gym_id_array){
         try {
-            GymGroupUser gymGroupUser = new GymGroupUser(id,name,phone,password==null?null:md5DigestAsHex(password.getBytes()),gymIdArray);
+            GymGroupUser gymGroupUser = new GymGroupUser(id,name,phone,password==null?null:md5DigestAsHex(password.getBytes()),gym_id_array);
             gymGroupUser = BeanWriteUtil.write(GymGroupUser.class,gymGroupUserRepository.findById(id).get(),gymGroupUser);
             GymGroupUser gymGroupUserResult = gymGroupUserRepository.save(gymGroupUser);
             return ResponseUtil.newSuccess(InteractiveBeanUtil.from(gymGroupUserResult));

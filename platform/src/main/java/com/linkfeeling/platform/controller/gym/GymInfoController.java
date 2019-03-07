@@ -36,8 +36,8 @@ public class GymInfoController {
 
     @RequestMapping(ActionContract.OPERATE.ADD)
     public Response addInfo(String name, String city, String address, String label,
-                            String phone, String logoUrl, String displayImgUrls, String miniProgramCodeUrl){
-        GymInfo gymInfo = new GymInfo(Long.valueOf(0),name,city,address,label,phone,logoUrl,displayImgUrls,miniProgramCodeUrl);
+                            String phone, String logo_url, String display_img_urls, String mini_program_code_url){
+        GymInfo gymInfo = new GymInfo(Long.valueOf(0),name,city,address,label,phone,logo_url,display_img_urls,mini_program_code_url);
         try {
             return ResponseUtil.newSuccess(gymInfoRepository.save(gymInfo));
         }catch (Exception e){
@@ -47,9 +47,9 @@ public class GymInfoController {
     }
 
     @RequestMapping(ActionContract.OPERATE.UPDATE)
-    public Response updateInfo(Long id,Long memberCount,String name, String city, String address, String label,
-                            String phone, String logoUrl, String displayImgUrls, String miniProgramCodeUrl){
-        GymInfo gymInfo = new GymInfo(id,memberCount,name,city,address,label,phone,logoUrl,displayImgUrls,miniProgramCodeUrl);
+    public Response updateInfo(Long id,Long member_count,String name, String city, String address, String label,
+                            String phone, String logo_url, String display_img_urls, String mini_program_code_url){
+        GymInfo gymInfo = new GymInfo(id,member_count,name,city,address,label,phone,logo_url,display_img_urls,mini_program_code_url);
         try {
             gymInfo = BeanWriteUtil.write(GymInfo.class,gymInfoRepository.findById(id).get(),gymInfo);
             return ResponseUtil.newSuccess(gymInfoRepository.save(gymInfo));
@@ -60,10 +60,10 @@ public class GymInfoController {
     }
 
     @RequestMapping(ActionContract.OPERATE.UPDATE_ME)
-    public Response updateMeInfo(HttpServletRequest servletRequest,Long memberCount,String name, String city, String address, String label,
-                               String phone, String logoUrl, String displayImgUrls, String miniProgramCodeUrl){
+    public Response updateMeInfo(HttpServletRequest servletRequest,Long member_count,String name, String city, String address, String label,
+                               String phone, String logo_url, String display_img_urls, String mini_program_code_url){
         return GymControllerUtil.onMeRequest(servletRequest,gymAdminUserRepository,gymId ->
-                gymInfoRepository.findById(gymId).isPresent()?updateInfo(gymId,memberCount,name,city,address,label,phone,logoUrl,displayImgUrls,miniProgramCodeUrl)
+                gymInfoRepository.findById(gymId).isPresent()?updateInfo(gymId,member_count,name,city,address,label,phone,logo_url,display_img_urls,mini_program_code_url)
                 :ResponseUtil.newResponseWithDesc(ResponseDesc.NOT_EXIST,"gym not exist. [id="+gymId+"]")
                 );
     }

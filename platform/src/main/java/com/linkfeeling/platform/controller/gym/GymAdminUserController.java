@@ -28,13 +28,13 @@ public class GymAdminUserController {
     @Autowired
     private AllUserRepository allUserRepository;
     @RequestMapping(ActionContract.OPERATE.ADD)
-    public Response addUser(String name, String phone, String password, Long gymId){
+    public Response addUser(String name, String phone, String password, Long gym_id){
         if(allUserRepository.findByName(name).isPresent()){
             return ResponseUtil.newResponseWithDesc(ResponseDesc.ALREADY_EXIST,"username already exist.[name=]"+name);
         }
 
         try {
-            GymAdminUser gymAdminUser = new GymAdminUser(name,phone,md5DigestAsHex(password.getBytes()),gymId);
+            GymAdminUser gymAdminUser = new GymAdminUser(name,phone,md5DigestAsHex(password.getBytes()),gym_id);
             GymAdminUser gymAdminUserResult = gymAdminUserRepository.save(gymAdminUser);
             return ResponseUtil.newSuccess(InteractiveBeanUtil.from(gymAdminUserResult));
         }catch (Exception e){
@@ -44,9 +44,9 @@ public class GymAdminUserController {
     }
 
     @RequestMapping(ActionContract.OPERATE.UPDATE)
-    public Response updateUser(Long id, String name, String phone, String password, Long gymId){
+    public Response updateUser(Long id, String name, String phone, String password, Long gym_id){
         try {
-            GymAdminUser gymAdminUser = new GymAdminUser(id,name,phone,password==null?null:md5DigestAsHex(password.getBytes()),gymId);
+            GymAdminUser gymAdminUser = new GymAdminUser(id,name,phone,password==null?null:md5DigestAsHex(password.getBytes()),gym_id);
             gymAdminUser = BeanWriteUtil.write(GymAdminUser.class,gymAdminUserRepository.findById(id).get(),gymAdminUser);
             GymAdminUser gymAdminUserResult = gymAdminUserRepository.save(gymAdminUser);
             return ResponseUtil.newSuccess(InteractiveBeanUtil.from(gymAdminUserResult));
@@ -57,9 +57,9 @@ public class GymAdminUserController {
     }
 
     @RequestMapping(ActionContract.OPERATE.VERIFY)
-    public Response verifyUser(Long gymId,String name, String password){
+    public Response verifyUser(Long gym_id,String name, String password){
         try {
-            Optional<GymAdminUser> gymAdminUser = gymAdminUserRepository.findByGymIdAndName(gymId,name);
+            Optional<GymAdminUser> gymAdminUser = gymAdminUserRepository.findByGymIdAndName(gym_id,name);
             if(gymAdminUser.isPresent()){
                 if(gymAdminUser.get().getPassword().equals(password)){
                     return ResponseUtil.newSuccess(InteractiveBeanUtil.from(gymAdminUser.get()));
