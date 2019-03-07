@@ -20,45 +20,71 @@
 ## gym_group_user 可以管理多个健身房的用户
 ## user 我们自己使用的系统用户
 
-# 接口列表
-- "/api/gym_admin_user/add",
-- "/api/gym_admin_user/update",
-- "/api/gym_admin_user/verify",
-- "/api/gym_class/add",
-- "/api/gym_class/add_me",
-- "/api/gym_class/delete",
-- "/api/gym_class/delete_me",
-- "/api/gym_class/get",
-- "/api/gym_class/get_me",
-- "/api/gym_class/list",
-- "/api/gym_class/list_all",
-- "/api/gym_class/list_me",
-- "/api/gym_class/update",
-- "/api/gym_class/update_me",
-- "/api/gym_coach/add",
-- "/api/gym_coach/add_me",
-- "/api/gym_coach/delete",
-- "/api/gym_coach/delete_me",
-- "/api/gym_coach/get",
-- "/api/gym_coach/get_me",
-- "/api/gym_coach/list",
-- "/api/gym_coach/list_all",
-- "/api/gym_coach/list_me",
-- "/api/gym_coach/update",
-- "/api/gym_coach/update_me",
-- "/api/gym_common/delete",
-- "/api/gym_common/get",
-- "/api/gym_common/get_me",
-- "/api/gym_group_user/add",
-- "/api/gym_group_user/update",
-- "/api/gym_group_user/verify",
-- "/api/gym_info/add",
-- "/api/gym_info/delete",
-- "/api/gym_info/get",
-- "/api/gym_info/get_me",
-- "/api/gym_info/list_all",
-- "/api/gym_info/list_group",
-- "/api/gym_info/update",
-- "/api/gym_info/update_me",
-- "/api/user/add",
-- "/api/user/verify",
+# 字段举例
+```
+健身房信息
++----+--------------------------------------------+-------------------------------+-----------------------------+---------------+--------------------------+------------------------------+--------+-------+--------------+
+| id | address                                    | city                          | display_img_urls            | label         | logo_url                 | mini_program_code_url        | name   | phone | member_count |
++----+--------------------------------------------+-------------------------------+-----------------------------+---------------+--------------------------+------------------------------+--------+-------+--------------+
+|  1 | 广东省深圳市南山区高新南四道               | 广东省-深圳市-南山区          | ["https://abc.com/log.jpg"] | 热情,人多     | https://abc.com/logo.jpg | https://abc.com/min_code.jpg | 测试   | 10086 |         1024 |
++----+--------------------------------------------+-------------------------------+-----------------------------+---------------+--------------------------+------------------------------+--------+-------+--------------+
+健身课 state 0 为下线 1为上线 price_info-test代表体验价格
++----+----------------------+--------+---------------+--------------------+-------+
+| id | content              | gym_id | price_info    | title              | state |
++----+----------------------+--------+---------------+--------------------+-------+
+|  2 | <div>第一节</div>    |      1 | {"test":1000} | 第一堂体验课       |     0 |
++----+----------------------+--------+---------------+--------------------+-------+
+健身教练
++----+--------+---------------------------+--------+
+| id | gym_id | label                     | name   |
++----+--------+---------------------------+--------+
+|  1 |      1 | 力大无穷,搬山卸岭         | 皮特   |
++----+--------+---------------------------+--------+
+```
+
+# 接口列表(具体参数值参考字段举例)
+> 一期开发系统用户后台系统，只需要关注不是me和group结尾的接口  
+
+> 二期开发健身房管理员,只关注me结尾的接口
+- "[/login]:[String name, String password]", 需要对用户的密码进行32位小写的md5加密
+- "[/api/user/add]:[String name, String password]",
+- "[/api/user/verify]:[String name, String password]",
+- "[/api/gym_admin_user/add]:[String name, String phone, String password, Long gym_id]",
+- "[/api/gym_admin_user/update]:[Long id, String name, String phone, String password, Long gym_id]",
+- "[/api/gym_admin_user/verify]:[Long gym_id, String name, String password]",
+- "[/api/gym_class/add]:[String title, String price_info, String content, Long gym_id]",
+- "[/api/gym_class/get]:[Long id]",
+- "[/api/gym_class/update]:[Long id, String title, String price_info, String content, Long gym_id, Integer state]",
+- "[/api/gym_class/delete]:[Long id]",
+- "[/api/gym_class/list]:[Long gym_id]",
+- "[/api/gym_class/get_me]:[Long id]",
+- "[/api/gym_class/add_me]:[String title, String price_info, String content]",
+- "[/api/gym_class/delete_me]:[Long id]",
+- "[/api/gym_class/update_me]:[Long id, String title, String price_info, String content, Integer state]",
+- "[/api/gym_class/list_all]:[]",
+- "[/api/gym_class/list_me]:[]",
+- "[/api/gym_coach/add]:[String name, String label, Long gym_id]",
+- "[/api/gym_coach/get]:[Long id]",
+- "[/api/gym_coach/update]:[Long id, String name, String label, Long gym_id]",
+- "[/api/gym_coach/delete]:[Long id]",
+- "[/api/gym_coach/list]:[Long gym_id]",
+- "[/api/gym_coach/get_me]:[Long id]",
+- "[/api/gym_coach/add_me]:[String name, String label]",
+- "[/api/gym_coach/delete_me]:[Long id]",
+- "[/api/gym_coach/update_me]:[Long id, String name, String label]",
+- "[/api/gym_coach/list_all]:[]",
+- "[/api/gym_coach/list_me]:[]",
+- "[/api/gym_common/get]:[Long id]",
+- "[/api/gym_common/delete]:[Long id]",
+- "[/api/gym_common/get_me]:[]",
+- "[/api/gym_group_user/add]:[String name, String phone, String password, String gym_id_array]",
+- "[/api/gym_group_user/update]:[Long id, String name, String phone, String password, String gym_id_array]",
+- "[/api/gym_group_user/verify]:[String name, String password]",
+- "[/api/gym_info/add]:[String name, String city, String address, String label, String phone, String logo_url, String display_img_urls, String mini_program_code_url]",
+- "[/api/gym_info/get]:[Long id]",
+- "[/api/gym_info/get_me]:[]",
+- "[/api/gym_info/list_group]:[]",
+- "[/api/gym_info/list_all]:[]",
+- "[/api/gym_info/update_me]:[Long member_count, String name, String city, String address, String label, String phone, String logo_url, String display_img_urls, String mini_program_code_url]",
+- "[/api/gym_info/update]:[Long id, Long member_count, String name, String city, String address, String label, String phone, String logo_url, String display_img_urls, String mini_program_code_url]",
+- "[/api/gym_info/delete]:[Long id]",
