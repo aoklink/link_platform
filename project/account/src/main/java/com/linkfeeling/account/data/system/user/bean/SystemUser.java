@@ -1,19 +1,7 @@
-package com.linkfeeling.platform.bean.jpa;
+package com.linkfeeling.account.data.system.user.bean;
 
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-@Entity
-@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class SystemUser {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
@@ -53,3 +41,4 @@ public class SystemUser {
         this.password = password;
     }
 }
+
