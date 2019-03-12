@@ -10,7 +10,7 @@ import java.util.Optional;
 public class JdbcUtil {
     public static <T> Optional<T> queryForObject(JdbcTemplate jdbcTemplate,String sql, RowMapper<T> rowMapper, @Nullable Object... args) {
         try {
-            return Optional.of(jdbcTemplate.queryForObject(sql,rowMapper,args));
+            return Optional.ofNullable(jdbcTemplate.queryForObject(sql,rowMapper,args));
         }catch (EmptyResultDataAccessException empty){
             return Optional.empty();
         }

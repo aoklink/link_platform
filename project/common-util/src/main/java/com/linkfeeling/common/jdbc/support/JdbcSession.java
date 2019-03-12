@@ -2,13 +2,9 @@ package com.linkfeeling.common.jdbc.support;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +25,6 @@ public class JdbcSession<BEAN> {
     public JdbcSession field(String name,Object value){
         checkFieldExist(name);
         fieldList.add(new JdbcField(name,value));
-        return this;
-    }
-
-    public JdbcSession field(String name,Object value,int type){
-        checkFieldExist(name);
-        fieldList.add(new JdbcField(name,value,type));
         return this;
     }
 
@@ -82,7 +72,7 @@ public class JdbcSession<BEAN> {
         for (int i = 0; i < fieldList.size(); i++) {
             JdbcField item = fieldList.get(i);
             stringBuilder.append("'")
-                    .append(item.value)
+                    .append(genValue(item.value))
                     .append("'");
             if(i == (fieldList.size()-1)){
                 break;
@@ -91,6 +81,14 @@ public class JdbcSession<BEAN> {
             }
         }
         return stringBuilder.toString();
+    }
+
+    private String genValue(Object value){
+        if(value==null){
+            return "NULL";
+        }else{
+            return String.valueOf(value);
+        }
     }
 
     private Object getIdValue(){
