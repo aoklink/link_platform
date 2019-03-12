@@ -4,7 +4,7 @@ CREATE TABLE `system_user` (
   `password` varchar(255) DEFAULT NULL,
   `phone` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE `gym_admin_user` (
@@ -14,7 +14,7 @@ CREATE TABLE `gym_admin_user` (
   `password` varchar(255) DEFAULT NULL,
   `phone` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `gym_group_user` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
