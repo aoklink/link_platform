@@ -7,6 +7,7 @@ import com.linkfeeling.common.interactive.response.ResponseDesc;
 import com.linkfeeling.common.interactive.util.BeanWriteUtil;
 import com.linkfeeling.common.interactive.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,13 +22,13 @@ public class GymGroupUserController {
     private GymGroupUserComponent gymGroupUserComponent;
 
     @RequestMapping(ControllerActionContract.OPERATE.ADD)
-    public Response addUser(String name, String phone, String password, String gym_id_array){
-        if(gymGroupUserComponent.findByName(name).isPresent()){
-            return ResponseUtil.newResponseWithDesc(ResponseDesc.ALREADY_EXIST,"username already exist.[name=]"+name);
+    public Response addUser(@RequestBody GymGroupUser gymGroupUser){
+        if(gymGroupUserComponent.findByName(gymGroupUser.getName()).isPresent()){
+            return ResponseUtil.newResponseWithDesc(ResponseDesc.ALREADY_EXIST,"username already exist.[name=]"+gymGroupUser.getName());
         }
 
         try {
-            GymGroupUser gymGroupUser = new GymGroupUser(name,phone,md5DigestAsHex(password.getBytes()),gym_id_array);
+            gymGroupUser.setPassword(md5DigestAsHex(gymGroupUser.getPassword().getBytes()));
             GymGroupUser gymGroupUserResult = gymGroupUserComponent.save(gymGroupUser);
             return ResponseUtil.newSuccess(gymGroupUserComponent.toResponse(gymGroupUserResult));
         }catch (Exception e){
@@ -37,10 +38,10 @@ public class GymGroupUserController {
     }
 
     @RequestMapping(ControllerActionContract.OPERATE.UPDATE)
-    public Response updateUser(Long id, String name, String phone, String password, String gym_id_array){
+    public Response updateUser(@RequestBody GymGroupUser gymGroupUser){
         try {
-            GymGroupUser gymGroupUser = new GymGroupUser(id,name,phone,password==null?null:md5DigestAsHex(password.getBytes()),gym_id_array);
-            gymGroupUser = BeanWriteUtil.write(GymGroupUser.class,gymGroupUserComponent.findById(id).get(),gymGroupUser);
+            gymGroupUser.setPassword(gymGroupUser.getPassword()==null?null:md5DigestAsHex(gymGroupUser.getPassword().getBytes()));
+            gymGroupUser = BeanWriteUtil.write(GymGroupUser.class,gymGroupUserComponent.findById(gymGroupUser.getId()).get(),gymGroupUser);
             GymGroupUser gymGroupUserResult = gymGroupUserComponent.save(gymGroupUser);
             return ResponseUtil.newSuccess(gymGroupUserComponent.toResponse(gymGroupUserResult));
         }catch (Exception e){

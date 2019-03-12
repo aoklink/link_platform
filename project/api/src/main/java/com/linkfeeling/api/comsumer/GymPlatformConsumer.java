@@ -129,10 +129,15 @@ public interface GymPlatformConsumer {
     Response gymInfoListGroup(@RequestBody String requestJson);
 
     @PostMapping("/platform/gym_info"+ ControllerActionContract.OPERATE.GET_GROUP)
-        // {"id":1} 此值由api通过权限认证后填入,api层需要判断当前登录连锁用户是否有权限查看此店铺
+    // {"id":1} 此值由api通过权限认证后填入,api层需要判断当前登录连锁用户是否有权限查看此店铺
     Response gymInfoGetGroup(@RequestBody String requestJson);
 
+    @PostMapping("/platform/gym_common"+ ControllerActionContract.OPERATE.GET_GROUP)
+    // {"id":1} 此值由api通过权限认证后填入,api层需要判断当前登录连锁用户是否有权限查看此店铺
+    // 返回的是组合对象，包括
+    Response gymCommonGetGroup(@RequestBody String requestJson);
+
     @PostMapping("/platform/gym_info"+ ControllerActionContract.OPERATE.UPDATE_GROUP)
-        // {"id":1} 此值由api通过权限认证后填入,api层需要判断当前登录连锁用户是否有权限查看此店铺
+    // {"id":1} 此值由api通过权限认证后填入,api层需要判断当前登录连锁用户是否有权限查看此店铺
     Response gymInfoUpdateGroup(@RequestBody String requestJson);
 }

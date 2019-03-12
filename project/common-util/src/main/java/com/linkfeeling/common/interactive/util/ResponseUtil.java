@@ -8,8 +8,9 @@ public class ResponseUtil {
         return new Response<>(ResponseDesc.OK.getCode(),ResponseDesc.OK.getMessage(),data);
     }
 
-    public static Response<Exception> newException(Exception data) {
-        return new Response<>(500,data.getMessage(),data);
+    public static Response newException(Exception data) {
+        data.printStackTrace();
+        return new Response(500,data.getMessage(),"");
     }
 
     @SuppressWarnings("unchecked")

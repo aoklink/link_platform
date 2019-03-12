@@ -78,7 +78,18 @@ public enum ResponseDesc {
         public String getMessage() {
             return "password error";
         }
-    };;
+    },
+    SERVICE_ERROR{
+        @Override
+        public int getCode() {
+            return 500;
+        }
+
+        @Override
+        public String getMessage() {
+            return "service error";
+        }
+    };
     public abstract int getCode();
     public abstract String getMessage();
 }

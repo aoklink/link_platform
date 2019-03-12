@@ -7,6 +7,8 @@ public class SystemUser {
 
     private String password;
 
+    private String phone;
+
     public SystemUser() {
     }
 
@@ -14,15 +16,22 @@ public class SystemUser {
         return id;
     }
 
-    public SystemUser(String name, String password) {
-        this.name = name;
-        this.password = password;
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public SystemUser(Long id, String name, String password) {
+    public SystemUser(String name, String password, String phone) {
+        this.name = name;
+        this.password = password;
+        this.phone = phone;
+    }
+
+    public SystemUser(Long id, String name, String password, String phone) {
         this.id = id;
         this.name = name;
         this.password = password;
+        this.phone = phone;
     }
 
     public String getName() {
@@ -39,6 +48,14 @@ public class SystemUser {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
 

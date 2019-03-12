@@ -17,6 +17,8 @@ public interface ControllerActionContract {
          */
         String GET = "/get";
 
+        String GET_BIND = "/get_bind";
+
         /**
          * query for appointed item
          *
@@ -47,5 +49,9 @@ public interface ControllerActionContract {
         String VERIFY = "/verify";
 
         String LOGIN = "/login";
+
+        String EXIST = "/exist";
+
+        String FIND = "/find";
     }
 }

@@ -65,4 +65,8 @@ public class GymGroupUser {
     public void setGymIdArray(String gymIdArray) {
         this.gymIdArray = gymIdArray;
     }
+
+    public void setId(long id) {
+        this.id= id;
+    }
 }

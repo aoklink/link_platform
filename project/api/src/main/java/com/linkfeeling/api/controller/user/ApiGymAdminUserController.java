@@ -1,4 +1,4 @@
-package com.linkfeeling.api.controller;
+package com.linkfeeling.api.controller.user;
 
 import com.linkfeeling.api.comsumer.GymAccountServer;
 import com.linkfeeling.common.controller.ControllerActionContract;
@@ -15,10 +15,6 @@ public class ApiGymAdminUserController {
     @Autowired
     private GymAccountServer gymAccountServer;
 
-    @PostMapping(ControllerActionContract.OPERATE.LOGIN)
-    public Response gymAdminUserLogin(@RequestBody String requestJson) {
-        return gymAccountServer.gymAdminUserLogin(requestJson);
-    }
     @PostMapping(ControllerActionContract.OPERATE.ADD)
     public Response gymAdminUserAdd(@RequestBody String requestJson) {
         return gymAccountServer.gymAdminUserAdd(requestJson);
