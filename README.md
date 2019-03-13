@@ -4,11 +4,11 @@
 
 # 项目描述
 
-## platform
-platform目录是项目的数据库交互模块代码，使用SpringBoot,JDBC,JPA实现，数据库使用的是MYSQL，版本是8+
+## project
+project是项目代码工程
 
-### 接口列表及介绍
-[查看链接](platform/README.md)
+### 项目代码工程介绍
+[查看链接](project/README.md)
 
 ## third_component
 third_component目录是第三方组件说明
