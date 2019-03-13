@@ -1,21 +1,11 @@
 package com.linkfeeling.common.interactive.util;
 
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkfeeling.common.interactive.response.Response;
 import com.linkfeeling.common.interactive.response.ResponseDesc;
 
 public class ResponseUtil {
-
-    private static final ObjectMapper objectMapper = new ObjectMapper();
-
     public static synchronized Response newSuccess(Object data) {
-//        String value = "";
-//        try {
-//            value = objectMapper.writeValueAsString(data);
-//        } catch (JsonProcessingException e) {
-//            value = data.toString();
-//        }
         return new Response(ResponseDesc.OK.getCode(),ResponseDesc.OK.getMessage(), data);
     }
 
