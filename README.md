@@ -8,7 +8,7 @@
 project是项目代码工程
 
 ### 项目代码工程介绍
-[查看链接](project/README.md)
+[查看链接](project/)
 
 ## third_component
 third_component目录是第三方组件说明
