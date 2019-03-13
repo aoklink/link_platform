@@ -16,6 +16,7 @@ import com.linkfeeling.common.interactive.util.ResponseUtil;
 import org.apache.http.HttpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +29,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/platform/gym_info")
+@CrossOrigin
 public class ApiGymInfoController {
     @Autowired
     private GymPlatformServerDelegater gymPlatformServer;

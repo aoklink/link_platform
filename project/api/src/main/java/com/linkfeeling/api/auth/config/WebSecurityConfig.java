@@ -15,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.util.DigestUtils;
 
 @EnableWebSecurity
@@ -39,6 +40,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 ).hasAuthority(IUserAuthority.SYSTEM)
                 .and()
                 .csrf().disable()
+                // 跨域支持
+                .cors().and()
                 .formLogin().loginPage("/api/account/platform/login")
                 .usernameParameter("name")
                 .passwordParameter("password")

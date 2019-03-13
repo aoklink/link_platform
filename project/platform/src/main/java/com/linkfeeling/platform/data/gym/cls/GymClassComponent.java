@@ -22,6 +22,9 @@ public class GymClassComponent {
     public GymClass save(GymClass gymClass)throws Exception {
         JdbcSession jdbcSession =
                 JdbcSupport.newSession(gymClass);
+        if(gymClass.getState()==null){
+            gymClass.setState(0);
+        }
         fillCommon(jdbcSession,gymClass);
         if(gymClass.getId()==null){
             Number key = jdbcSession.insert(jdbcTemplate);
