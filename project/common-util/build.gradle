@@ -1,9 +1,4 @@
-plugins {
-    id 'java'
-    id "org.springframework.boot" version "2.1.3.RELEASE"
-}
-
-apply plugin: 'io.spring.dependency-management'
+apply plugin: 'java'
 
 group = 'com.linkfeeling'
 version = '0.0.1-SNAPSHOT'
