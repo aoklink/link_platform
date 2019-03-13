@@ -74,6 +74,7 @@ public class GymCommonController {
             }
 
         }catch (Exception e){
+            e.printStackTrace();
             return ResponseUtil.newException(e);
         }
     }

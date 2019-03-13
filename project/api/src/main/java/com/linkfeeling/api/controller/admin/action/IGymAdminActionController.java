@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 // 这个类是约束API模块本身的，不需要注册为分布服务
+// 这个接口的最终实现均被ApiGym*Controller代理
 public interface IGymAdminActionController {
     /**
      * 这一部分接口是给商家管理员用的
@@ -58,24 +59,24 @@ public interface IGymAdminActionController {
         // {"gym_id":1} gym_id值由api通过权限认证后填入
     Response gymClassListMe(@RequestBody String requestJson);
 
-    /**
-     * 这一部分接口是给连锁店老板用的
-     * 老板只管基本信息就行，对课程和教练都不关心
-     */
-    @PostMapping("/platform/gym_info"+ ControllerActionContract.OPERATE.LIST_GROUP)
-    // {"id_array":[1,2,3]} 此值由api通过权限认证后填入
-    Response gymInfoListGroup(@RequestBody String requestJson);
-
-    @PostMapping("/platform/gym_info"+ ControllerActionContract.OPERATE.GET_GROUP)
-        // {"id":1} 此值由api通过权限认证后填入,api层需要判断当前登录连锁用户是否有权限查看此店铺
-    Response gymInfoGetGroup(@RequestBody String requestJson);
-
-    @PostMapping("/platform/gym_common"+ ControllerActionContract.OPERATE.GET_GROUP)
-        // {"id":1} 此值由api通过权限认证后填入,api层需要判断当前登录连锁用户是否有权限查看此店铺
-        // 返回的是组合对象，包括
-    Response gymCommonGetGroup(@RequestBody String requestJson);
-
-    @PostMapping("/platform/gym_info"+ ControllerActionContract.OPERATE.UPDATE_GROUP)
-        // {"id":1} 此值由api通过权限认证后填入,api层需要判断当前登录连锁用户是否有权限查看此店铺
-    Response gymInfoUpdateGroup(@RequestBody String requestJson);
+//    /**
+//     * 这一部分接口是给连锁店老板用的
+//     * 老板只管基本信息就行，对课程和教练都不关心
+//     */
+//    @PostMapping("/platform/gym_info"+ ControllerActionContract.OPERATE.LIST_GROUP)
+//    // {"id_array":[1,2,3]} 此值由api通过权限认证后填入
+//    Response gymInfoListGroup(@RequestBody String requestJson);
+//
+//    @PostMapping("/platform/gym_info"+ ControllerActionContract.OPERATE.GET_GROUP)
+//        // {"id":1} 此值由api通过权限认证后填入,api层需要判断当前登录连锁用户是否有权限查看此店铺
+//    Response gymInfoGetGroup(@RequestBody String requestJson);
+//
+//    @PostMapping("/platform/gym_common"+ ControllerActionContract.OPERATE.GET_GROUP)
+//        // {"id":1} 此值由api通过权限认证后填入,api层需要判断当前登录连锁用户是否有权限查看此店铺
+//        // 返回的是组合对象，包括
+//    Response gymCommonGetGroup(@RequestBody String requestJson);
+//
+//    @PostMapping("/platform/gym_info"+ ControllerActionContract.OPERATE.UPDATE_GROUP)
+//        // {"id":1} 此值由api通过权限认证后填入,api层需要判断当前登录连锁用户是否有权限查看此店铺
+//    Response gymInfoUpdateGroup(@RequestBody String requestJson);
 }

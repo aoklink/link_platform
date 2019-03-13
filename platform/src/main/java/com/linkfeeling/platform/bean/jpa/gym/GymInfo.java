@@ -26,6 +26,7 @@ public class GymInfo {
 
     private String logoUrl;
     @Lob
+    @Column(columnDefinition="BLOB NOT NULL")
     private String displayImgUrls;
 
     private String miniProgramCodeUrl;

@@ -1,11 +1,16 @@
 package com.linkfeeling.common.interactive.response;
 
-public class Response<T> {
+import com.linkfeeling.common.interactive.util.ResponseUtil;
+
+public class Response {
     int code;
     String message;
-    T data;
+    Object data;
 
-    public Response(int code, String message, T data) {
+    public Response() {
+    }
+
+    public Response(int code, String message, Object data) {
         this.code = code;
         this.message = message;
         this.data = data;
@@ -27,11 +32,16 @@ public class Response<T> {
         this.message = message;
     }
 
-    public T getData() {
+    public Object getData() {
         return data;
     }
 
-    public void setData(T data) {
+    public void setData(Object data) {
         this.data = data;
+    }
+
+    @Override
+    public String toString() {
+        return ResponseUtil.parse(this);
     }
 }

@@ -79,6 +79,18 @@ public enum ResponseDesc {
             return "password error";
         }
     },
+    NO_PERMISSION{
+        @Override
+        public int getCode() {
+            return 441;
+        }
+
+        @Override
+        public String getMessage() {
+            return "no permission";
+        }
+    },
+
     SERVICE_ERROR{
         @Override
         public int getCode() {

@@ -43,6 +43,23 @@ public class GymAdminUserController {
         }
     }
 
+    @RequestMapping(ActionContract.OPERATE.GET_BIND)
+    public Response getUser(Long gym_id){
+        try {
+            GymAdminUser gymAdminUser = gymAdminUserRepository.findByGymId(gym_id).get();
+            if(gymAdminUser==null){
+                return ResponseUtil.newResponseWithDesc(ResponseDesc.NOT_EXIST);
+            }else{
+                return ResponseUtil.newSuccess(InteractiveBeanUtil.from(gymAdminUser));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseUtil.newException(e);
+        }
+    }
+
+
+
     @RequestMapping(ActionContract.OPERATE.UPDATE)
     public Response updateUser(Long id, String name, String phone, String password, Long gym_id){
         try {

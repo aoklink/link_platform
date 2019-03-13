@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -73,5 +74,14 @@ public class GymInfoContoller {
         }
     }
 
+    @PostMapping(ControllerActionContract.OPERATE.LIST_ALL)
+    public Response listAll(){
+        try {
+            List<GymInfo> gymInfoInDB = gymInfoComponent.findAll();
+            return ResponseUtil.newSuccess(gymInfoComponent.toListResponse(gymInfoInDB));
+        }catch (Exception e){
+            return ResponseUtil.newException(e);
+        }
+    }
 
 }

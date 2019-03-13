@@ -5,6 +5,7 @@ import com.linkfeeling.common.interactive.response.Response;
 import com.linkfeeling.common.interactive.response.ResponseDesc;
 import com.linkfeeling.common.interactive.util.ResponseUtil;
 import com.linkfeeling.platform.data.gym.bean.GymClass;
+import com.linkfeeling.platform.data.gym.bean.GymCoach;
 import com.linkfeeling.platform.data.gym.coach.GymCoachComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -66,6 +68,16 @@ public class GymClassContoller {
             }else{
                 return ResponseUtil.newResponseWithDesc(ResponseDesc.NOT_EXIST);
             }
+        }catch (Exception e){
+            return ResponseUtil.newException(e);
+        }
+    }
+
+    @PostMapping(ControllerActionContract.OPERATE.LIST)
+    public Response list(@RequestBody GymClass gymClass){
+        try {
+            List<GymClass> gymClasses = gymClassComponent.findAllByGymId(gymClass.getGymId());
+            return ResponseUtil.newSuccess(gymClassComponent.toResponseList(gymClasses));
         }catch (Exception e){
             return ResponseUtil.newException(e);
         }

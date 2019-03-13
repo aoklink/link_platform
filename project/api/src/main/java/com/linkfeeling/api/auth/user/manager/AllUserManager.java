@@ -2,8 +2,11 @@ package com.linkfeeling.api.auth.user.manager;
 
 import com.alibaba.fastjson.JSONObject;
 import com.linkfeeling.api.comsumer.GymAccountServer;
+import com.linkfeeling.api.comsumer.GymAccountServerDelegater;
+import com.linkfeeling.api.controller.user.UserControllerUtil;
 import com.linkfeeling.common.interactive.response.Response;
 import com.linkfeeling.common.interactive.response.ResponseDesc;
+import com.linkfeeling.common.interactive.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,7 +22,7 @@ import java.util.Optional;
 
 public class AllUserManager implements UserDetailsManager {
     @Autowired
-    private GymAccountServer gymAccountServer;
+    private GymAccountServerDelegater gymAccountServer;
     @Value("${app.auth.strict}")
     private boolean authStrict;
     @Override
@@ -44,16 +47,16 @@ public class AllUserManager implements UserDetailsManager {
 
     @Override
     public boolean userExists(String username) {
-        return gymAccountServer.userExist(mkRequestJson(username)).getCode() == ResponseDesc.OK.getCode();
+        return gymAccountServer.userExist(UserControllerUtil.buildUserFindArg(username)).getCode() == ResponseDesc.OK.getCode();
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Response<String> response  = gymAccountServer.userFind(mkRequestJson(username));
+        Response response  = gymAccountServer.userFind(UserControllerUtil.buildUserFindArg(username));
         if(response.getCode() == ResponseDesc.OK.getCode()){
-            String responseBody = response.getData();
+            String responseBody = ResponseUtil.getDataString(response);
             JSONObject jsonObject = JSONObject.parseObject(responseBody);
-            String password = jsonObject.getString("password");
+            String password = jsonObject.getJSONObject("user").getString("password");
             String beanClassName = jsonObject.getString("bean_class_name");
             String authority = "";
             if("SystemUser".equals(beanClassName)){
@@ -66,16 +69,13 @@ public class AllUserManager implements UserDetailsManager {
             if(StringUtils.isEmpty(authority)){
                 throw new UsernameNotFoundException(username);
             }else{
-                return new User(username, genPassword(password), Collections.singleton(new SimpleGrantedAuthority(IUserAuthority.SYSTEM)));
+                return new User(username, genPassword(password), Collections.singleton(new SimpleGrantedAuthority(authority)));
             }
         }else{
             throw new UsernameNotFoundException(username);
         }
     }
 
-    private String mkRequestJson(String username){
-        return "{\"phone\":"+username+"}";
-    }
 
     private String genPassword(String raw){
         if(authStrict){
@@ -86,12 +86,12 @@ public class AllUserManager implements UserDetailsManager {
     }
 
     public Object getUserToResponse(String username){
-        Response<String> response  = gymAccountServer.userFind(mkRequestJson(username));
+        Response response  = gymAccountServer.userFind(UserControllerUtil.buildUserFindArg(username));
         if(response.getCode() == ResponseDesc.OK.getCode()){
-            JSONObject jsonObject = JSONObject.parseObject(response.getData());
-            jsonObject.remove("password");
-            jsonObject.remove("bean_class_name");
-            return jsonObject;
+            JSONObject jsonObject = JSONObject.parseObject(ResponseUtil.getDataString(response));
+            JSONObject userObject = jsonObject.getJSONObject("user");
+            userObject.put("password","******");
+            return userObject;
         }else{
             return response;
         }

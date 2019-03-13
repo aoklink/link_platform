@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.linkfeeling.account.data.common.user.bean.CommonUserWrapper;
 import com.linkfeeling.account.data.gym.admin.GymAdminUserComponent;
 import com.linkfeeling.account.data.gym.admin.bean.GymAdminUser;
 import com.linkfeeling.account.data.gym.group.GymGroupUserComponent;
@@ -44,14 +45,7 @@ public class CommonUserComponent {
         if(result==null){
             return ResponseUtil.newResponseWithDesc(ResponseDesc.NOT_EXIST);
         }else{
-            try {
-                String value = objectMapper.writeValueAsString(result);
-                JSONObject jsonObject = JSON.parseObject(value);
-                jsonObject.put("bean_class_name",result.getClass().getSimpleName());
-                return ResponseUtil.newSuccess(jsonObject);
-            } catch (JsonProcessingException e) {
-                return ResponseUtil.newResponseWithDesc(ResponseDesc.SERVICE_ERROR,e.getMessage());
-            }
+            return ResponseUtil.newSuccess(new CommonUserWrapper(result,result.getClass().getSimpleName()));
         }
     }
 

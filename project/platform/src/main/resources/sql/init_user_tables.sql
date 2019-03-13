@@ -14,7 +14,7 @@
 
  CREATE TABLE `gym_class` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `content` text,
+  `content` longtext,
   `gym_id` bigint(20) DEFAULT NULL,
   `price_info` varchar(255) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,

@@ -32,9 +32,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/api/platform/gym_*/*_me").hasAnyAuthority(IUserAuthority.GYM_ADMIN)
                 .mvcMatchers("/api/platform/gym_*/*_group").hasAuthority(IUserAuthority.GYM_GROUP)
                 .mvcMatchers(
-                        "/api/account/system_user",
-                        "/api/account/gym_group_user",
-                        "/api/account/gym_admin_user",
+                        "/api/account/system_user/*",
+                        "/api/account/gym_group_user/*",
+                        "/api/account/gym_admin_user/*",
                         "/api/platform/gym_*/*"
                 ).hasAuthority(IUserAuthority.SYSTEM)
                 .and()

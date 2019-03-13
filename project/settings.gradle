@@ -16,4 +16,6 @@ include ':account'
 include ':api'
 include ':platform'
 include ':common-util'
+include ':common-jdbc-util'
+include ':eureka-server'
 

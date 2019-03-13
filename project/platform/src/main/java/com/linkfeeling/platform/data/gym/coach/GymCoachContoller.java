@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -66,6 +67,16 @@ public class GymCoachContoller {
             }else{
                 return ResponseUtil.newResponseWithDesc(ResponseDesc.NOT_EXIST);
             }
+        }catch (Exception e){
+            return ResponseUtil.newException(e);
+        }
+    }
+
+    @PostMapping(ControllerActionContract.OPERATE.LIST)
+    public Response list(@RequestBody GymCoach gymCoach){
+        try {
+            List<GymCoach> gymCoaches = gymCoachComponent.findAllByGymId(gymCoach.getGymId());
+            return ResponseUtil.newSuccess(gymCoaches);
         }catch (Exception e){
             return ResponseUtil.newException(e);
         }

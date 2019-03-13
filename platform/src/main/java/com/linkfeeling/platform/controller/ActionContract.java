@@ -16,6 +16,8 @@ public interface ActionContract {
          */
         String GET = "/get";
 
+        String GET_BIND = "/get_bind";
+
         /**
          * query for appointed item
          *
