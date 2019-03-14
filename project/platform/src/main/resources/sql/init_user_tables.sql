@@ -15,6 +15,7 @@
  CREATE TABLE `gym_class` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `content` longtext,
+  `img_urls` text,
   `gym_id` bigint(20) DEFAULT NULL,
   `price_info` varchar(255) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
@@ -27,5 +28,6 @@ CREATE TABLE `gym_coach` (
   `gym_id` bigint(20) DEFAULT NULL,
   `label` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
+  `img_url` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

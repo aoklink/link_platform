@@ -42,6 +42,7 @@ public class GymCoachComponent {
         jdbcSession
                 .field("name",gymCoach.getName())
                 .field("label",gymCoach.getLabel())
+                .field("img_url",gymCoach.getImgUrl())
                 .field("gym_id",gymCoach.getGymId());
     }
 

@@ -9,6 +9,7 @@ public class GymClass {
     private String title;
     private String priceInfo;
     private String content;
+    private String imgUrls;
     private Long gymId;
     private Integer state;
 
@@ -75,7 +76,15 @@ public class GymClass {
         this.state = state;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getImgUrls() {
+        return imgUrls;
+    }
+
+    public void setImgUrls(String imgUrls) {
+        this.imgUrls = imgUrls;
     }
 }

@@ -48,7 +48,8 @@ public class GymClassComponent {
         .field("price_info",gymClass.getPriceInfo())
         .field("content",gymClass.getContent())
         .field("gym_id",gymClass.getGymId())
-        .field("state",gymClass.getState());
+        .field("state",gymClass.getState())
+        .field("img_urls",gymClass.getImgUrls());
     }
 
     public Optional<GymClass> findById(Long id) {

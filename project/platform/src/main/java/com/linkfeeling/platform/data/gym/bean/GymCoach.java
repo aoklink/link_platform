@@ -10,6 +10,7 @@ public class GymCoach {
     private String name;
     private String label;
     private Long gymId;
+    private String imgUrl;
 
     public GymCoach() {
     }
@@ -55,7 +56,15 @@ public class GymCoach {
         this.gymId = gymId;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 }
