@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 @Service
-@FeignClient(value = "link-account-online")
+@FeignClient(value = "link-account-p-online")
 public interface GymAccountServer {
 
     @PostMapping(value = {"/account/common"+ ControllerActionContract.OPERATE.EXIST},consumes = "application/json")

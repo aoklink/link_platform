@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 @Service
-@FeignClient(value = "link-platform-online")
+@FeignClient(value = "link-platform-p-online")
 public interface GymPlatformServer {
 
     /**
