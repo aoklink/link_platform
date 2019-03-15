@@ -20,24 +20,7 @@ public class ServerConfiguration implements WebMvcConfigurer {
         sessionRegistry.addPathPatterns("/**");
 
         // exclude gym
-        sessionRegistry.excludePathPatterns("/api/upload");
-        sessionRegistry.excludePathPatterns("/api/uwb/data");
-        sessionRegistry.excludePathPatterns("/api/gym/data");
-
-
-        //exclude platform
-        sessionRegistry.excludePathPatterns("/api/platform/bracelet/add");
-        sessionRegistry.excludePathPatterns("/api/platform/bracelet/bind");
-        sessionRegistry.excludePathPatterns("/api/platform/bracelet/unbind");
-        sessionRegistry.excludePathPatterns("/api/platform/bracelet/delete");
-
-        //exclude account
-        sessionRegistry.excludePathPatterns("/api/user/check_smscode");
-        sessionRegistry.excludePathPatterns("/api/user/check_register");
-        sessionRegistry.excludePathPatterns("/api/user/register");
-        sessionRegistry.excludePathPatterns("/api/user/login");
-        sessionRegistry.excludePathPatterns("/api/user/get_code");
-        sessionRegistry.excludePathPatterns("/api/user/login_out");
+        sessionRegistry.excludePathPatterns("/api/*");
     }
 
     /**
