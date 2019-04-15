@@ -1,7 +1,7 @@
 package com.linkfeeling.common.interactive.response;
 
 public enum ResponseDesc {
-    OK{
+    OK {
         @Override
         public int getCode() {
             return 200;
@@ -12,7 +12,7 @@ public enum ResponseDesc {
             return "OK";
         }
     },
-    UNAUTHORIZED{
+    UNAUTHORIZED {
         @Override
         public int getCode() {
             return 401;
@@ -68,7 +68,7 @@ public enum ResponseDesc {
             return "invalid request";
         }
     },
-    PASSWORD_ERROR{
+    PASSWORD_ERROR {
         @Override
         public int getCode() {
             return 440;
@@ -79,7 +79,7 @@ public enum ResponseDesc {
             return "password error";
         }
     },
-    NO_PERMISSION{
+    NO_PERMISSION {
         @Override
         public int getCode() {
             return 441;
@@ -90,8 +90,41 @@ public enum ResponseDesc {
             return "no permission";
         }
     },
+    PARAM_ERROR {
+        @Override
+        public int getCode() {
+            return 402;
+        }
 
-    SERVICE_ERROR{
+        @Override
+        public String getMessage() {
+            return "param is null";
+        }
+    },
+    BRACELET_NOT_BEYOND_GYM {
+        @Override
+        public int getCode() {
+            return 110;
+        }
+
+        @Override
+        public String getMessage() {
+            return "param is error";
+        }
+    },
+    PARAM_CHECK_FAILED {
+        @Override
+        public int getCode() {
+            return 111;
+        }
+
+        @Override
+        public String getMessage() {
+            return "param check failed";
+        }
+    },
+
+    SERVICE_ERROR {
         @Override
         public int getCode() {
             return 500;
@@ -102,6 +135,8 @@ public enum ResponseDesc {
             return "service error";
         }
     };
+
     public abstract int getCode();
+
     public abstract String getMessage();
 }

@@ -1,7 +1,7 @@
 package com.linkfeeling.common.controller;
 
 public interface ControllerActionContract {
-    interface OPERATE{
+    interface OPERATE {
         String ADD = "/add";
         String ADD_ME = "/add_me";
         String DELETE = "/delete";
@@ -21,7 +21,6 @@ public interface ControllerActionContract {
 
         /**
          * query for appointed item
-         *
          */
         String GET_ME = "/get_me";
 
@@ -53,5 +52,14 @@ public interface ControllerActionContract {
         String EXIST = "/exist";
 
         String FIND = "/find";
+
+        /**
+         * 绑定手环 add by zl
+         */
+        String BIND = "/bracelet/bind";
+        String UNBIND = "/bracelet/unbind";
+        String MEMBERS = "/members";
+        String GET_ACCOUNT = "/get/account";
+        String GET_ACCOUNT_INFO = "/get/account_info";
     }
 }

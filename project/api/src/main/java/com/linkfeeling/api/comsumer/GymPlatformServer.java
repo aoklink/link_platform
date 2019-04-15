@@ -70,4 +70,13 @@ public interface GymPlatformServer {
     @PostMapping(value = {"/platform/gym_class"+ ControllerActionContract.OPERATE.LIST},consumes = "application/json")
     // {"gym_id":1}
     String gymClassListByGymId(@RequestBody String requestJson);
+
+
+    // add by zl 绑定手环接口
+    @PostMapping(value = {"/platform/link" + ControllerActionContract.OPERATE.BIND}, consumes = "application/json")
+    String bind(@RequestBody String request);
+    @PostMapping(value = {"/platform/link" + ControllerActionContract.OPERATE.UNBIND}, consumes = "application/json")
+    String unbind(@RequestBody String request);
+    @PostMapping(value = {"/platform/link" + ControllerActionContract.OPERATE.MEMBERS}, consumes = "application/json")
+    String getMembers(@RequestBody String gym_name);
 }
