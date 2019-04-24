@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.lang.Nullable;
 
+import java.util.List;
 import java.util.Optional;
 
 public class JdbcUtil {
@@ -14,5 +15,9 @@ public class JdbcUtil {
         }catch (EmptyResultDataAccessException empty){
             return Optional.empty();
         }
+    }
+
+    public static <T> List<T> query(JdbcTemplate jdbcTemplate, String sql, RowMapper<T> rowMapper, @Nullable Object... args) {
+        return jdbcTemplate.query(sql,rowMapper,args);
     }
 }

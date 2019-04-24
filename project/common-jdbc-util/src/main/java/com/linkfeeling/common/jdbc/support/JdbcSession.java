@@ -6,7 +6,9 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class JdbcSession<BEAN> {
@@ -87,6 +89,10 @@ public class JdbcSession<BEAN> {
         if(value==null){
             return "NULL";
         }else{
+            if(value instanceof Date){
+                return new Timestamp(((Date) value).getTime()).toString();
+            }
+
             return String.valueOf(value);
         }
     }

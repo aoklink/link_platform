@@ -1,9 +1,12 @@
 package com.linkfeeling.api.comsumer;
 
+import com.linkfeeling.common.controller.ControllerActionContract;
 import com.linkfeeling.common.interactive.response.Response;
 import com.linkfeeling.common.interactive.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
 public class GymPlatformServerDelegater {
@@ -69,4 +72,22 @@ public class GymPlatformServerDelegater {
     public Response gymClassListByGymId(String requestJson) {
         return ResponseUtil.parse(gymPlatformServer.gymClassListByGymId(requestJson));
     }
+
+    public Response gymPlayMemberListByGymName(String requestJson) {
+        return ResponseUtil.parse(gymPlatformServer.gymPlayMemberList(requestJson));
+    }
+
+    public Response gymPlayCoachAdd(String requestJson){
+        return ResponseUtil.parse(gymPlatformServer.gymPlayCoachAdd(requestJson));
+    }
+    public Response gymPlayCoachDelete(String requestJson){
+        return ResponseUtil.parse(gymPlatformServer.gymPlayCoachDelete(requestJson));
+    }
+    public Response gymPlayCoachUpdate(String requestJson){
+        return ResponseUtil.parse(gymPlatformServer.gymPlayCoachUpdate(requestJson));
+    }
+    public Response gymPlayCoachList(String requestJson){
+        return ResponseUtil.parse(gymPlatformServer.gymPlayCoachList(requestJson));
+    }
+
 }

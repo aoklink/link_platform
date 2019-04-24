@@ -79,4 +79,17 @@ public interface GymPlatformServer {
     String unbind(@RequestBody String request);
     @PostMapping(value = {"/platform/link" + ControllerActionContract.OPERATE.MEMBERS}, consumes = "application/json")
     String getMembers(@RequestBody String gym_name);
+
+    // 教练及学员接口 add by yunlong.yang @2019-04-24
+    @PostMapping(value = {"/platform/gym/play/coach"+ ControllerActionContract.OPERATE.ADD},consumes = "application/json")
+    String gymPlayCoachAdd(@RequestBody String requestJson);
+    @PostMapping(value = {"/platform/gym/play/coach"+ ControllerActionContract.OPERATE.DELETE},consumes = "application/json")
+    String gymPlayCoachDelete(@RequestBody String requestJson);
+    @PostMapping(value = {"/platform/gym/play/coach"+ ControllerActionContract.OPERATE.UPDATE},consumes = "application/json")
+    String gymPlayCoachUpdate(@RequestBody String requestJson);
+    @PostMapping(value = {"/platform/gym/play/coach"+ ControllerActionContract.OPERATE.LIST},consumes = "application/json")
+    String gymPlayCoachList(@RequestBody String requestJson);
+
+    @PostMapping(value = {"/platform/gym/play/member"+ ControllerActionContract.OPERATE.LIST},consumes = "application/json")
+    String gymPlayMemberList(@RequestBody String requestJson);
 }

@@ -31,6 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .mvcMatchers("/api/platform/gym_*/*_me").hasAnyAuthority(IUserAuthority.GYM_ADMIN)
+                .mvcMatchers("/api/platform/gym/play/**").hasAnyAuthority(IUserAuthority.GYM_ADMIN)
                 .mvcMatchers("/api/platform/gym_*/*_group").hasAuthority(IUserAuthority.GYM_GROUP)
                 .mvcMatchers(
                         "/api/account/system_user/*",
