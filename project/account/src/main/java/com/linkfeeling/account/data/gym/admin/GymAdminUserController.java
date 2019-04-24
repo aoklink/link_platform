@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.util.DigestUtils.md5DigestAsHex;
@@ -123,6 +124,18 @@ public class GymAdminUserController {
                 return ResponseUtil.newResponseWithDesc(ResponseDesc.NOT_EXIST);
             }
         }catch (Exception e){
+            return ResponseUtil.newException(e);
+        }
+    }
+
+    @RequestMapping(ControllerActionContract.OPERATE.LIST)
+    public Response listUser(@RequestBody GymAdminUser gymAdminUser){
+        try {
+            List<GymAdminUser> gymAdminUserInDB = gymAdminUserComponent.findAllByGymId(gymAdminUser.getGymId());
+            gymAdminUserInDB.forEach(it->gymAdminUserComponent.toResponse(it));
+            return ResponseUtil.newSuccess(gymAdminUserInDB);
+        }catch (Exception e){
+            e.printStackTrace();
             return ResponseUtil.newException(e);
         }
     }

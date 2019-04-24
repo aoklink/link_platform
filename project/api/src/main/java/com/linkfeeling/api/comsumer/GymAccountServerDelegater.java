@@ -45,4 +45,8 @@ public class GymAccountServerDelegater {
     public Response gymAdminUserGetByGymId(String requestJson) {
         return JSONObject.parseObject(gymAccountServer.gymAdminUserGetByGymId(requestJson),Response.class);
     }
+
+    public Response gymAdminUserList(String requestJson) {
+        return JSONObject.parseObject(gymAccountServer.gymAdminUserList(requestJson),Response.class);
+    }
 }

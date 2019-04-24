@@ -1,0 +1,1 @@
+alter table gym_admin_user add column permission_array varchar(512);

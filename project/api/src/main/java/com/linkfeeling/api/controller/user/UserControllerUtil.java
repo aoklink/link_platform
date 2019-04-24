@@ -13,4 +13,9 @@ public class UserControllerUtil {
         JSONObject jsonObject = JSONObject.parseObject(ResponseUtil.getDataString(gymAccountServer.userFind(UserControllerUtil.buildUserFindArg(nameOrPhone))));
         return jsonObject.getJSONObject("user");
     }
+
+    public static JSONObject getRichUserObject(String nameOrPhone, GymAccountServerDelegater gymAccountServer){
+        JSONObject jsonObject = JSONObject.parseObject(ResponseUtil.getDataString(gymAccountServer.userFind(UserControllerUtil.buildUserFindArg(nameOrPhone))));
+        return jsonObject;
+    }
 }

@@ -11,24 +11,7 @@ public class GymAdminUser {
     private String phone;
     private String password;
     private Long gymId;
-
-    public GymAdminUser() {
-    }
-
-    public GymAdminUser(String name, String phone, String password, Long gymId) {
-        this.name = name;
-        this.phone = phone;
-        this.password = password;
-        this.gymId = gymId;
-    }
-
-    public GymAdminUser(Long id, String name, String phone, String password, Long gymId) {
-        this.id = id;
-        this.name = name;
-        this.phone = phone;
-        this.password = password;
-        this.gymId = gymId;
-    }
+    private String permissionArray;
 
     public Long getId() {
         return id;
@@ -68,5 +51,13 @@ public class GymAdminUser {
 
     public void setGymId(Long gymId) {
         this.gymId = gymId;
+    }
+
+    public String getPermissionArray() {
+        return permissionArray;
+    }
+
+    public void setPermissionArray(String permissionArray) {
+        this.permissionArray = permissionArray;
     }
 }

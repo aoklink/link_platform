@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -56,8 +57,17 @@ public class GymAdminUserComponent {
     }
 
     public Optional<GymAdminUser> findByGymId(Long gym_id){
-        RowMapper<GymAdminUser> rowMapper= new BeanPropertyRowMapper<>(GymAdminUser.class);
-        return JdbcUtil.queryForObject(jdbcTemplate,"select * from gym_admin_user where gym_id=?", rowMapper,gym_id);
+        List<GymAdminUser> adminUsers = findAllByGymId(gym_id);
+        for(GymAdminUser gymAdminUser : adminUsers ){
+            if(gymAdminUser.getPermissionArray()== null || gymAdminUser.getPermissionArray().contains("admin")){
+                return Optional.of(gymAdminUser);
+            }
+        }
+        return Optional.empty();
+    }
+
+    public List<GymAdminUser> findAllByGymId(Long gym_id){
+        return JdbcUtil.query(jdbcTemplate,"select * from gym_admin_user where gym_id=?", new BeanPropertyRowMapper<>(GymAdminUser.class),gym_id);
     }
 
     public Optional<GymAdminUser> findByNameOrPhone(String phone) {

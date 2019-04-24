@@ -54,6 +54,9 @@ public interface GymAccountServer {
     @PostMapping(value = {"/account" + ControllerActionContract.OPERATE.GET_ACCOUNT_INFO}, consumes = "application/json")
     String getAccountInfo(@RequestBody String request);
 
+    @PostMapping(value = {"/account/gym_admin_user/"+ControllerActionContract.OPERATE.LIST},consumes = "application/json")
+    String gymAdminUserList(String requestJson);
+
 //    @PostMapping("/account/gym_group_user"+ControllerActionContract.OPERATE.GET)
 //    // {"id":1}
 //    // {"name":"who"}
