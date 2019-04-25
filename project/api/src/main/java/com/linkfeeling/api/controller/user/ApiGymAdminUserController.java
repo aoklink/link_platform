@@ -113,12 +113,6 @@ public class ApiGymAdminUserController {
     }
 
     private boolean isSystemUser(JSONObject userObj){
-        JSONArray jsonArray = userObj.getJSONArray("authorities");
-        for (int i = 0; i < jsonArray.size(); i++) {
-            if(IUserAuthority.SYSTEM.equals(jsonArray.getString(i))){
-                return true;
-            }
-        }
-        return false;
+       return "SystemUser".equals(userObj.getString("bean_class_name"));
     }
 }
