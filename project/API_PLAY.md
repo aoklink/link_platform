@@ -25,9 +25,9 @@ private String phone;
 private Date join_time;
 private String member_array;
 ```
-member_array示例，对应是学员的手机号列表
+member_array示例，对应是学员的id列表
 ```json
-["13012340000","13012340001","13012340002"]
+["1","2","3"]
 ```
 #### 接口介绍
 基础 path: /api/platform/gym/play/coach
