@@ -29,7 +29,8 @@ public class GymAdminUserComponent {
                         .field("name",gymAdminUser.getName())
                         .field("password",gymAdminUser.getPassword())
                         .field("phone",gymAdminUser.getPhone())
-                        .field("gym_id",gymAdminUser.getGymId());
+                        .field("gym_id",gymAdminUser.getGymId())
+                        .field("permission_array",gymAdminUser.getPermissionArray());
         if(gymAdminUser.getId()==null){
             Number key = jdbcSession.insert(jdbcTemplate);
             gymAdminUser.setId(key.longValue());
