@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class PlayMemberComponent {
@@ -20,5 +21,13 @@ public class PlayMemberComponent {
 
     public List<GymPlayMember> listByGymName(String gymName){
         return JdbcUtil.query(jdbcTemplate,"select * from gym_bind_members where gym_name = ?", new BeanPropertyRowMapper<>(GymPlayMember.class),gymName);
+    }
+
+    public Optional<GymPlayMember> findByUid(String uid){
+        return JdbcUtil.queryForObject(jdbcTemplate,"select * from gym_bind_members where uid = ?", new BeanPropertyRowMapper<>(GymPlayMember.class),uid);
+    }
+
+    public Optional<GymPlayMember> findByPhoneNum(String phoneNum){
+        return JdbcUtil.queryForObject(jdbcTemplate,"select * from gym_bind_members where phone_num = ?", new BeanPropertyRowMapper<>(GymPlayMember.class),phoneNum);
     }
 }

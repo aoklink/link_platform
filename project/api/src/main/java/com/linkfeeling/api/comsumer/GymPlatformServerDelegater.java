@@ -77,17 +77,29 @@ public class GymPlatformServerDelegater {
         return ResponseUtil.parse(gymPlatformServer.gymPlayMemberList(requestJson));
     }
 
-    public Response gymPlayCoachAdd(String requestJson){
-        return ResponseUtil.parse(gymPlatformServer.gymPlayCoachAdd(requestJson));
+    public Response gymPlayMemberGet(String requestJson) {
+        return ResponseUtil.parse(gymPlatformServer.gymPlayMemberGet(requestJson));
     }
-    public Response gymPlayCoachDelete(String requestJson){
-        return ResponseUtil.parse(gymPlatformServer.gymPlayCoachDelete(requestJson));
+
+    public Response gymPlayMemberTrans(String requestJson) {
+        return ResponseUtil.parse(gymPlatformServer.gymPlayMemberTrans(requestJson));
     }
-    public Response gymPlayCoachUpdate(String requestJson){
-        return ResponseUtil.parse(gymPlatformServer.gymPlayCoachUpdate(requestJson));
+
+    public Response gymPlayCoachGet(String requestJson){
+        return ResponseUtil.parse(gymPlatformServer.gymPlayCoachGet(requestJson));
+    }
+    public Response gymPlayCoachBind(String requestJson){
+        return ResponseUtil.parse(gymPlatformServer.gymPlayCoachBind(requestJson));
+    }
+    public Response gymPlayCoachUnBind(String requestJson){
+        return ResponseUtil.parse(gymPlatformServer.gymPlayCoachUnBind(requestJson));
     }
     public Response gymPlayCoachList(String requestJson){
         return ResponseUtil.parse(gymPlatformServer.gymPlayCoachList(requestJson));
+    }
+
+    public Response gymPlayCoachListMember(String requestJson){
+        return ResponseUtil.parse(gymPlatformServer.gymPlayCoachListMember(requestJson));
     }
 
 }

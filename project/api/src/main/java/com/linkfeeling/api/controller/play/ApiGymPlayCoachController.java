@@ -40,17 +40,20 @@ public class ApiGymPlayCoachController {
         apiProxyMap = new HashMap<>();
         apiWrapperMap = new HashMap<>();
 
-        apiWrapperMap.put(ControllerActionContract.OPERATE.ADD,(request, requestJson) -> wrapGymId(ControllerActionContract.OPERATE.ADD,request,requestJson));
-        apiProxyMap.put(ControllerActionContract.OPERATE.ADD,(requestJson -> gymPlatformServer.gymPlayCoachAdd(requestJson)));
+        apiWrapperMap.put(ControllerActionContract.OPERATE.GET,(request, requestJson) -> wrapGymId(ControllerActionContract.OPERATE.GET,request,requestJson));
+        apiProxyMap.put(ControllerActionContract.OPERATE.GET,(requestJson -> gymPlatformServer.gymPlayCoachGet(requestJson)));
 
-        apiWrapperMap.put(ControllerActionContract.OPERATE.UPDATE,(request, requestJson) -> wrapGymId(ControllerActionContract.OPERATE.UPDATE,request,requestJson));
-        apiProxyMap.put(ControllerActionContract.OPERATE.UPDATE,(requestJson -> gymPlatformServer.gymPlayCoachUpdate(requestJson)));
+        apiWrapperMap.put(ControllerActionContract.OPERATE.DO_BIND,(request, requestJson) -> wrapGymId(ControllerActionContract.OPERATE.DO_BIND,request,requestJson));
+        apiProxyMap.put(ControllerActionContract.OPERATE.DO_BIND,(requestJson -> gymPlatformServer.gymPlayCoachBind(requestJson)));
 
-        apiWrapperMap.put(ControllerActionContract.OPERATE.DELETE,(request, requestJson) -> wrapGymId(ControllerActionContract.OPERATE.DELETE,request,requestJson));
-        apiProxyMap.put(ControllerActionContract.OPERATE.DELETE,(requestJson -> gymPlatformServer.gymPlayCoachDelete(requestJson)));
+        apiWrapperMap.put(ControllerActionContract.OPERATE.DO_UNBIND,(request, requestJson) -> wrapGymId(ControllerActionContract.OPERATE.DO_UNBIND,request,requestJson));
+        apiProxyMap.put(ControllerActionContract.OPERATE.DO_UNBIND,(requestJson -> gymPlatformServer.gymPlayCoachUnBind(requestJson)));
 
         apiWrapperMap.put(ControllerActionContract.OPERATE.LIST,(request, requestJson) -> wrapGymId(ControllerActionContract.OPERATE.LIST,request,requestJson));
         apiProxyMap.put(ControllerActionContract.OPERATE.LIST,(requestJson -> gymPlatformServer.gymPlayCoachList(requestJson)));
+
+        apiWrapperMap.put(ControllerActionContract.OPERATE.LIST_MEMBER,(request, requestJson) -> wrapGymId(ControllerActionContract.OPERATE.LIST_MEMBER,request,requestJson));
+        apiProxyMap.put(ControllerActionContract.OPERATE.LIST_MEMBER,(requestJson -> gymPlatformServer.gymPlayCoachListMember(requestJson)));
     }
 
     @RequestMapping(value = {"/*"},produces="application/json;charset=UTF-8")

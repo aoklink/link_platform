@@ -36,10 +36,11 @@ private Date bind_time;
 ```
 #### 接口介绍
 基础 path: /api/platform/gym/play/coach
--  /get 查询教练是否存在，若存在返回教练结构体
+-  /get 查询教练是否存在，参数为{"phone_num":""}若存在返回教练结构体
 -  /bind 绑定教练至当前健身房，参数为{"coach_uid":""}
 -  /unbind 解绑教练，参数为{"coach_uid":""}
--  /list 查询列表 请求无参数，响应为当前健身房的教练列表
+-  /list 查询列表 请求无参数，响应为当前健身房的教练列表（添加了bind_time属性）
+-  /list_member 查询学员列表 ，参数为{"coach_uid":""}，响应为当前教练的学员列表（添加了bind_time属性）
 ####
 
 
@@ -65,5 +66,6 @@ private Date bind_time;
 ```
 #### 接口介绍
 - 基础 path: /api/platform/gym/play/member
-- /list 查询当前健身房下的所有学员，无需参数
-- /trans 学员转移，参数为{"student_uid":"","from_coach_uid":"(可空)","to_coach_uid":""}
+- /list 查询当前健身房下的所有学员，无需参数（不推荐前端使用）
+- /get 查询学员是否存在，参数为{"phone_num":""}若存在返回学员结构体
+- /trans 学员转移，参数为{"student_uid_array":"[]","from_coach_uid":"(可空,为空时代表新增学员绑定至教练)","to_coach_uid":"(可空,为空时代表学员解除绑定)"}

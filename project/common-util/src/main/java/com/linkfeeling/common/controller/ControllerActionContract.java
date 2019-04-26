@@ -29,6 +29,7 @@ public interface ControllerActionContract {
          * query all item
          */
         String LIST = "/list";
+        String LIST_MEMBER = "/list_member";
 
         /**
          * query all item belong to me
@@ -40,6 +41,12 @@ public interface ControllerActionContract {
          */
         String LIST_ALL = "/list_all";
 
+        /**
+         *
+         */
+        String DO_BIND = "/bind";
+        String DO_UNBIND = "/unbind";
+        String TRANS = "/trans";
         /**
          * query all item  belong to my group
          */
@@ -61,5 +68,6 @@ public interface ControllerActionContract {
         String MEMBERS = "/members";
         String GET_ACCOUNT = "/get/account";
         String GET_ACCOUNT_INFO = "/get/account_info";
+
     }
 }

@@ -4,61 +4,66 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import java.util.Date;
-
+// `phone_num` varchar(11) NOT NULL COMMENT '手机号',
+//         `user_name` varchar(255) DEFAULT NULL COMMENT '用户名',
+//         `head_icon` varchar(256) DEFAULT NULL,
+//         `uid` varchar(32) NOT NULL COMMENT '教练id',
+//         `user_type` varchar(32) NOT NULL,
+//         `build_time` varchar(32) DEFAULT NULL COMMENT '创建时间',
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class GymPlayCoach {
-    private Long id;
-    private Long gymId;
-    private String name;
-    private String phone;
-    private Date joinTime;
-    private String memberArray;
+    private String uid;
+    private String userName;
+    private String phoneNum;
+    private String userType;
+    private Date buildTime;
+    private String headIcon;
 
-    public Long getId() {
-        return id;
+    public String getUid() {
+        return uid;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
-    public Long getGymId() {
-        return gymId;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setGymId(Long gymId) {
-        this.gymId = gymId;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getName() {
-        return name;
+    public String getPhoneNum() {
+        return phoneNum;
     }
 
-    public String getPhone() {
-        return phone;
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
     }
 
-    public Date getJoinTime() {
-        return joinTime;
+    public String getUserType() {
+        return userType;
     }
 
-    public String getMemberArray() {
-        return memberArray;
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Date getBuildTime() {
+        return buildTime;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setBuildTime(Date buildTime) {
+        this.buildTime = buildTime;
     }
 
-    public void setJoinTime(Date joinTime) {
-        this.joinTime = joinTime;
+    public String getHeadIcon() {
+        return headIcon;
     }
 
-    public void setMemberArray(String memberArray) {
-        this.memberArray = memberArray;
+    public void setHeadIcon(String headIcon) {
+        this.headIcon = headIcon;
     }
 }

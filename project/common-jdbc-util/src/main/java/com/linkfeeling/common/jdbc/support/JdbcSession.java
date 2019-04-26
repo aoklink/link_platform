@@ -46,9 +46,18 @@ public class JdbcSession<BEAN> {
         return keyHolder.getKey();
     }
 
+    public void insertNormal(JdbcTemplate jdbcTemplate)throws Exception{
+        String insertSql = "insert into "+tableName+" ("+makeInsertNames()+") values ("+makeInsertValues()+")";
+        jdbcTemplate.execute(insertSql);
+    }
+
 
     public void update(JdbcTemplate jdbcTemplate)throws Exception{
         jdbcTemplate.update("update "+tableName+" set "+makeUpdateParams() +" where id="+getIdValue());
+    }
+
+    public void updateWithCustomId(JdbcTemplate jdbcTemplate,String idName)throws Exception{
+        jdbcTemplate.update("update "+tableName+" set "+makeUpdateParams(idName) +" where "+idName+"='"+getIdValue(idName)+"'");
     }
 
     public void delete(JdbcTemplate jdbcTemplate)throws Exception{
@@ -97,24 +106,28 @@ public class JdbcSession<BEAN> {
         }
     }
 
-    private Object getIdValue(){
+    private Object getIdValue(String idName){
         for(JdbcField field : fieldList){
-            if(field.name.equals("id")){
+            if(field.name.equals(idName)){
                 return field.value;
             }
         }
         return null;
     }
 
-    private String makeUpdateParams(){
+    private Object getIdValue(){
+       return getIdValue("id");
+    }
+
+    private String makeUpdateParams(String idName){
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < fieldList.size(); i++) {
             JdbcField item = fieldList.get(i);
-            if(item.name.equals("id")) continue;
+            if(item.name.equals(idName)) continue;
             if(item.value == null ) continue;
             stringBuilder.append(item.name)
                     .append("='")
-                    .append(item.value)
+                    .append(genValue(item.value))
                     .append("'");
             if(i == (fieldList.size()-1)){
                 break;
@@ -126,6 +139,10 @@ public class JdbcSession<BEAN> {
             stringBuilder.setLength(stringBuilder.length()-2);
         }
         return stringBuilder.toString();
+    }
+
+    private String makeUpdateParams(){
+        return makeUpdateParams("id");
     }
 
     private String makeDeleteParams(){
