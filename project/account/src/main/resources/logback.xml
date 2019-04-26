@@ -1,7 +1,7 @@
 <configuration>
 
     <appender name="File" class="ch.qos.logback.core.FileAppender">
-        <file>/root/logs/link_platform.log</file>
+        <file>/root/logs/link_account.log</file>
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} %msg%n</pattern>
         </encoder>
